@@ -21,13 +21,12 @@ public class GuestbookProviderRestAdapter implements GuestbookProvider
     }
 
     @Override
-    public List<Guestbook> listGuestbook()
-    {
+    public List<Guestbook> listGuestbook(int offset) {
         return naraRestClient.sendAndRecieve(
-                        RequestBuilder.create(BlogRestUrl.GUESTBOOK_P_LIST)
-                                        .setResponseType(List.class)
+                RequestBuilder.create(BlogRestUrl.GUESTBOOK_P_LIST)
+                        .addQueryParam("offset", offset)
+                        .setResponseType(List.class)
         );
-
     }
 
     @Override

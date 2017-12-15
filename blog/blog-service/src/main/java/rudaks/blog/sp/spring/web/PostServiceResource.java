@@ -8,6 +8,8 @@ import rudaks.blog.domain.logic.PostLogic;
 import rudaks.blog.domain.spec.PostService;
 import rudaks.blog.domain.spec.sdo.PostCdo;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/s/posts")
 public class PostServiceResource implements PostService
@@ -27,6 +29,13 @@ public class PostServiceResource implements PostService
     public String registerPost(@RequestBody PostCdo postCdo)
     {
         return postLogic.registerPost(postCdo);
+    }
+
+    @Override
+    @GetMapping
+    public List<Post> listPostByCategory(@RequestParam String category, @RequestParam int offset)
+    {
+        return postLogic.listPostByCategory(category, offset);
     }
 
     @Override

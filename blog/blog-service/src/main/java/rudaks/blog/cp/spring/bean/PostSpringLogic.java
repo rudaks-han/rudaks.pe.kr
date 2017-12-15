@@ -1,18 +1,30 @@
 package rudaks.blog.cp.spring.bean;
 
 import nara.share.domain.NameValueList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import rudaks.blog.domain.entity.Post;
 import rudaks.blog.domain.logic.PostLogic;
 import rudaks.blog.domain.spec.sdo.PostCdo;
+import rudaks.blog.domain.store.BlogStoreLycler;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class PostSpringLogic extends PostLogic
 {
-    @Override
-    public List<Post> listPost()
+    @Autowired
+    public PostSpringLogic(BlogStoreLycler storeLycler)
     {
-        return super.listPost();
+        super(storeLycler);
+    }
+
+    @Override
+    public List<Post> listPostByCategory(String category, int offset)
+    {
+        return super.listPostByCategory(category, offset);
     }
 
     @Override

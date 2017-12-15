@@ -6,7 +6,6 @@ import rudaks.blog.domain.entity.Category;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,11 +20,17 @@ public class CategoryJpo
     private String name;
     private String deleteFlag;
     private String publicFlag;
-    private int sortOrder;
-    @Lob
+    private long sortOrder;
     private String description;
     private String createdDate;
     private String updatedDate;
+
+    public CategoryJpo() {}
+
+    public CategoryJpo(Category category)
+    {
+        BeanUtils.copyProperties(category, this);
+    }
 
     public void update(Category category)
     {

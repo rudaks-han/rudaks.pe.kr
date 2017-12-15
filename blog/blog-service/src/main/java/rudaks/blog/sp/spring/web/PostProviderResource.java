@@ -18,9 +18,8 @@ public class PostProviderResource implements PostProvider
 
     @Override
     @GetMapping
-    public List<Post> listPost()
-    {
-        return postLogic.listPost();
+    public List<Post> listPostByCategory(@RequestParam String category, @RequestParam(defaultValue = "0") int offset) {
+        return postLogic.listPostByCategory(category, offset);
     }
 
     @Override

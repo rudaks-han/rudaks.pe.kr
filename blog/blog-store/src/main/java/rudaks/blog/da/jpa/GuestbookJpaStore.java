@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 import rudaks.blog.da.jpa.jpo.GuestbookJpo;
 import rudaks.blog.da.jpa.springdata.GuestbookRepository;
 import rudaks.blog.domain.entity.Guestbook;
@@ -14,6 +15,7 @@ import rudaks.blog.domain.store.GuestbookStore;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Repository
 public class GuestbookJpaStore implements GuestbookStore
 {
     @Autowired
@@ -40,8 +42,7 @@ public class GuestbookJpaStore implements GuestbookStore
             throw new AlreadyExistsException(String.format("Guestbook jpo[ID:%s already exit", id));
         }
 
-        GuestbookJpo categoryJpo = new GuestbookJpo();
-        guestbookRepository.save(categoryJpo);
+        guestbookRepository.save(new GuestbookJpo(guestbook));
         return id;
     }
 

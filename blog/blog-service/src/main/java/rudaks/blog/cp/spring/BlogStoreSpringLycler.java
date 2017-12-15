@@ -2,11 +2,13 @@ package rudaks.blog.cp.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import rudaks.blog.domain.store.BlogStoreLycler;
 import rudaks.blog.domain.store.CategoryStore;
 import rudaks.blog.domain.store.GuestbookStore;
 import rudaks.blog.domain.store.PostStore;
 
+@Component
 public class BlogStoreSpringLycler implements BlogStoreLycler
 {
     @Autowired

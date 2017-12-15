@@ -5,11 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rudaks.blog.domain.entity.Category;
-import rudaks.blog.domain.entity.Post;
 import rudaks.blog.domain.logic.CategoryLogic;
 import rudaks.blog.domain.spec.CategoryProvider;
-import rudaks.blog.domain.spec.GuestbookProvider;
-import rudaks.blog.domain.spec.sdo.GuestbookCdo;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ import java.util.List;
 public class CategoryProviderResource implements CategoryProvider
 {
     @Autowired
-    CategoryLogic categoryLogic;
+    private CategoryLogic categoryLogic;
 
     @Override
     @GetMapping

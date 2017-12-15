@@ -30,6 +30,13 @@ public class PostJpo
     private String createdDate;
     private String updatedDate;
 
+    public PostJpo() {}
+
+    public PostJpo(Post post)
+    {
+        BeanUtils.copyProperties(post, this);
+    }
+
     public void update(Post post)
     {
         BeanUtils.copyProperties(post, this);

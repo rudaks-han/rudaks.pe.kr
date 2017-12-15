@@ -7,6 +7,8 @@ import rudaks.blog.domain.entity.Post;
 import rudaks.blog.domain.spec.PostService;
 import rudaks.blog.domain.spec.sdo.PostCdo;
 
+import java.util.List;
+
 public class PostServiceRestAdapter implements PostService
 {
     private NaraRestClient naraRestClient;
@@ -14,6 +16,16 @@ public class PostServiceRestAdapter implements PostService
     public PostServiceRestAdapter(NaraRestClient naraRestClient)
     {
         this.naraRestClient = naraRestClient;
+    }
+
+    @Override
+    public List<Post> listPostByCategory(String category, int offset) {
+        return naraRestClient.sendAndRecieve(
+                RequestBuilder.create(BlogRestUrl.POST_P_LIST)
+                        .addQueryParam("offset", offset)
+                        .addQueryParam("category", category)
+                        .setResponseType(List.class)
+        );
     }
 
     @Override

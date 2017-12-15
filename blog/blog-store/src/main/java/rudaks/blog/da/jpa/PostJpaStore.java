@@ -3,19 +3,32 @@ package rudaks.blog.da.jpa;
 import nara.share.exception.store.AlreadyExistsException;
 import nara.share.exception.store.NonExistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import rudaks.blog.da.jpa.jpo.GuestbookJpo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 import rudaks.blog.da.jpa.jpo.PostJpo;
-import rudaks.blog.da.jpa.springdata.GuestbookRepository;
 import rudaks.blog.da.jpa.springdata.PostRepository;
 import rudaks.blog.domain.entity.Post;
 import rudaks.blog.domain.store.PostStore;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
+@Repository
 public class PostJpaStore implements PostStore
 {
     @Autowired
     private PostRepository postRepository;
+
+    @Override
+    public List<Post> retrieveListByCategory(String category, int offset) {
+        PageRequest request = new PageRequest(offset, 10, Sort.Direction.DESC, "createdDate");
+        Page<PostJpo> postJpos = postRepository.findByCategory(category, request);
+
+        List<PostJpo> contentList = postJpos.getContent();
+        return PostJpo.toDomains(contentList);
+    }
 
     @Override
     public String create(Post post)
@@ -26,8 +39,7 @@ public class PostJpaStore implements PostStore
             throw new AlreadyExistsException(String.format("Post jpo[ID:%s already exit", id));
         }
 
-        PostJpo postJpo = new PostJpo();
-        postRepository.save(postJpo);
+        postRepository.save(new PostJpo(post));
         return id;
     }
 

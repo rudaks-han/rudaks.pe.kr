@@ -12,7 +12,7 @@ public class Category extends Entity
     private String name;
     private String deleteFlag;
     private String publicFlag;
-    private int sortOrder;
+    private long sortOrder;
     private String description;
     private String createdDate;
     private String updatedDate;

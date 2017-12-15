@@ -3,12 +3,9 @@ package rudaks.blog.sp.spring.web;
 import nara.share.domain.NameValueList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import rudaks.blog.domain.entity.Post;
 import rudaks.blog.domain.logic.GuestbookLogic;
 import rudaks.blog.domain.spec.GuestbookService;
-import rudaks.blog.domain.spec.PostService;
 import rudaks.blog.domain.spec.sdo.GuestbookCdo;
-import rudaks.blog.domain.spec.sdo.PostCdo;
 
 @RestController
 @RequestMapping("api/s/guestbooks")

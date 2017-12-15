@@ -27,6 +27,13 @@ public class GuestbookJpo
     private String createdDate;
     private String updatedDate;
 
+    public GuestbookJpo() {}
+
+    public GuestbookJpo(Guestbook guestbook)
+    {
+        BeanUtils.copyProperties(guestbook, this);
+    }
+
     public void update(Guestbook guestbook)
     {
         BeanUtils.copyProperties(guestbook, this);

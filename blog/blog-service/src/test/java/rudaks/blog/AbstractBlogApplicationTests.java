@@ -84,6 +84,7 @@ public abstract class AbstractBlogApplicationTests
     @Before
     public void setup()
     {
+
         sampleGuestbookCdo = new GuestbookCdo("1", "rudaks", "rudaks@gmail.com.", "설명");
         sampleGuestbookId = guestbookServiceRestAdapter().registerGuestbook(sampleGuestbookCdo);
 

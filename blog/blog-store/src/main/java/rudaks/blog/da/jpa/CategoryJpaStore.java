@@ -3,15 +3,30 @@ package rudaks.blog.da.jpa;
 import nara.share.exception.store.AlreadyExistsException;
 import nara.share.exception.store.NonExistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 import rudaks.blog.da.jpa.jpo.CategoryJpo;
 import rudaks.blog.da.jpa.springdata.CategoryRepository;
 import rudaks.blog.domain.entity.Category;
 import rudaks.blog.domain.store.CategoryStore;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+@Repository
 public class CategoryJpaStore implements CategoryStore
 {
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Override
+    public List<Category> retreiveList() {
+        Iterable<CategoryJpo> it = categoryRepository.findAll(new Sort(Sort.Direction.DESC, "createdDate"));
+        List<CategoryJpo> categoryJpos =
+                StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
+        return CategoryJpo.toDomains(categoryJpos);
+    }
 
     @Override
     public String create(Category category)
@@ -22,8 +37,7 @@ public class CategoryJpaStore implements CategoryStore
             throw new AlreadyExistsException(String.format("Category jpo[ID:%s already exit", id));
         }
 
-        CategoryJpo categoryJpo = new CategoryJpo();
-        categoryRepository.save(categoryJpo);
+        categoryRepository.save(new CategoryJpo(category));
         return id;
     }
 
