@@ -2,6 +2,8 @@ package rudaks.blog.domain.entity;
 
 import lombok.Data;
 import nara.share.domain.Entity;
+import nara.share.domain.NameValue;
+import nara.share.domain.NameValueList;
 import nara.share.util.date.DateUtil;
 import nara.share.util.json.JsonUtil;
 
@@ -37,6 +39,26 @@ public class Guestbook extends Entity
         String currDate = DateUtil.getCurrDate("yyyyMMddHHmmss");
         this.createdDate = currDate;
         this.updatedDate = currDate;
+    }
+
+    public void setValues(NameValueList nameValues)
+    {
+        for (NameValue nameValue : nameValues.getList())
+        {
+            String value = nameValue.getValue();
+            switch (nameValue.getName())
+            {
+                case "username":
+                    this.username = value;
+                    break;
+                case "email":
+                    this.email = value;
+                    break;
+                case "comment":
+                    this.comment = value;
+                    break;
+            }
+        }
     }
 
     public static Guestbook getSample()

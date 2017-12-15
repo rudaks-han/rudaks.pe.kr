@@ -27,6 +27,11 @@ public class CategoryJpo
     private String createdDate;
     private String updatedDate;
 
+    public void update(Category category)
+    {
+        BeanUtils.copyProperties(category, this);
+    }
+
     public Category toDomain()
     {
         Category category = new Category(id);

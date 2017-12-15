@@ -15,6 +15,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>blog-adapter</module>
         <module>blog-domain</module>
         <module>blog-service</module>
         <module>blog-store</module>

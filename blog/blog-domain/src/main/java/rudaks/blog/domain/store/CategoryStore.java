@@ -1,14 +1,15 @@
 package rudaks.blog.domain.store;
 
 import rudaks.blog.domain.entity.Category;
-import rudaks.blog.domain.entity.Post;
 
-import java.util.NoSuchElementException;
+import java.util.List;
 
 public interface CategoryStore
 {
+    List<Category> retreiveList();
+
     String create(Category category);
 
-    void update(Post post);
-    void delete(Post post);
+    void update(Category category);
+    void delete(Category category);
 }

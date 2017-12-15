@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostProvider
 {
-    List<Post> listPost();
+    List<Post> listPostByCategory(String category, int offset);
     Post findPost(String id);
     String registerPost(PostCdo postCdo);
 }

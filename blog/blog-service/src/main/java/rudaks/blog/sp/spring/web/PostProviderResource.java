@@ -1,28 +1,39 @@
 package rudaks.blog.sp.spring.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import rudaks.blog.domain.entity.Post;
+import rudaks.blog.domain.logic.PostLogic;
 import rudaks.blog.domain.spec.PostProvider;
 import rudaks.blog.domain.spec.sdo.PostCdo;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("api/p/posts")
 public class PostProviderResource implements PostProvider
 {
+    @Autowired
+    private PostLogic postLogic;
+
     @Override
+    @GetMapping
     public List<Post> listPost()
     {
-        return null;
+        return postLogic.listPost();
     }
 
     @Override
-    public Post findPost(String id)
+    @GetMapping("{id}")
+    public Post findPost(@PathVariable String id)
     {
-        return null;
+        return postLogic.findPost(id);
     }
 
     @Override
-    public String registerPost(PostCdo postCdo)
+    @PostMapping
+    public String registerPost(@RequestBody PostCdo postCdo)
     {
-        return null;
+        return postLogic.registerPost(postCdo);
     }
 }

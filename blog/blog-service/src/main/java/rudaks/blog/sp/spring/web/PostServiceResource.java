@@ -1,33 +1,45 @@
 package rudaks.blog.sp.spring.web;
 
 import nara.share.domain.NameValueList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import rudaks.blog.domain.entity.Post;
+import rudaks.blog.domain.logic.PostLogic;
 import rudaks.blog.domain.spec.PostService;
 import rudaks.blog.domain.spec.sdo.PostCdo;
 
+@RestController
+@RequestMapping("api/s/posts")
 public class PostServiceResource implements PostService
 {
+    @Autowired
+    private PostLogic postLogic;
+
     @Override
-    public Post findPost(String id)
+    @GetMapping("{id}")
+    public Post findPost(@PathVariable String id)
     {
-        return null;
+        return postLogic.findPost(id);
     }
 
     @Override
-    public String registerPost(PostCdo postCod)
+    @PostMapping
+    public String registerPost(@RequestBody PostCdo postCdo)
     {
-        return null;
+        return postLogic.registerPost(postCdo);
     }
 
     @Override
-    public void modifyPost(String id, NameValueList nameValueList)
+    @PutMapping("{id}")
+    public void modifyPost(@PathVariable String id, @RequestBody NameValueList nameValueList)
     {
-
+        postLogic.modifyPost(id, nameValueList);
     }
 
     @Override
-    public void deletePost(String id)
+    @DeleteMapping("{id}")
+    public void deletePost(@PathVariable String id)
     {
-
+        postLogic.deletePost(id);
     }
 }

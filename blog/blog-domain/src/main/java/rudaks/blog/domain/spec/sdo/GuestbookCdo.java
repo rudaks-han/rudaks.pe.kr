@@ -6,7 +6,7 @@ import nara.share.util.date.DateUtil;
 import nara.share.util.json.JsonUtil;
 
 @Data
-public class GuestbookCdo extends Entity
+public class GuestbookCdo
 {
     private String ref;
     private String username;
@@ -19,11 +19,6 @@ public class GuestbookCdo extends Entity
     private String updatedDate;
 
     public GuestbookCdo() {}
-
-    public GuestbookCdo(String id)
-    {
-        super(id);
-    }
 
     public GuestbookCdo(String ref, String username, String email, String comment)
     {
