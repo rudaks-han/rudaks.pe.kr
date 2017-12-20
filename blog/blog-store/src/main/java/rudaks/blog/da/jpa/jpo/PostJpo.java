@@ -1,6 +1,7 @@
 package rudaks.blog.da.jpa.jpo;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 import org.springframework.beans.BeanUtils;
 import rudaks.blog.domain.entity.Post;
 
@@ -26,6 +27,7 @@ public class PostJpo
     private String title;
     private int oldSeq;
     @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String content;
     private String createdDate;
     private String updatedDate;

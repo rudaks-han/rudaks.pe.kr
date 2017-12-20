@@ -11,7 +11,6 @@ public interface PostService
     List<Post> listPostByCategory(String category, int offset);
     Post findPost(String id);
     String registerPost(PostCdo postCdo);
-
     void modifyPost(String id, NameValueList nameValueList);
     void deletePost(String id);
 }

@@ -52,33 +52,15 @@ public abstract class AbstractBlogApplicationTests
     }
 
     @Bean
-    public CategoryProviderRestAdapter categoryProviderRestAdapter()
-    {
-        return new CategoryProviderRestAdapter(createRestClient());
-    }
-
-    @Bean
     public GuestbookServiceRestAdapter guestbookServiceRestAdapter()
     {
         return new GuestbookServiceRestAdapter(createRestClient());
     }
 
     @Bean
-    public GuestbookProviderRestAdapter guestbookProviderRestAdapter()
-    {
-        return new GuestbookProviderRestAdapter(createRestClient());
-    }
-
-    @Bean
     public PostServiceRestAdapter postServiceRestAdapter()
     {
         return new PostServiceRestAdapter(createRestClient());
-    }
-
-    @Bean
-    public PostProviderRestAdapter postProviderRestAdapter()
-    {
-        return new PostProviderRestAdapter(createRestClient());
     }
 
     @Before

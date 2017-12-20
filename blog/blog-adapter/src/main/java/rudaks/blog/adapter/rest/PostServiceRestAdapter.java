@@ -21,7 +21,7 @@ public class PostServiceRestAdapter implements PostService
     @Override
     public List<Post> listPostByCategory(String category, int offset) {
         return naraRestClient.sendAndRecieve(
-                RequestBuilder.create(BlogRestUrl.POST_P_LIST)
+                RequestBuilder.create(BlogRestUrl.POST_S_LIST)
                         .addQueryParam("offset", offset)
                         .addQueryParam("category", category)
                         .setResponseType(List.class)

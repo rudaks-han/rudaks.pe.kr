@@ -4,6 +4,7 @@ import nara.share.domain.NameValueList;
 import nara.share.restclient.NaraRestClient;
 import nara.share.restclient.RequestBuilder;
 import rudaks.blog.domain.entity.Category;
+import rudaks.blog.domain.entity.Guestbook;
 import rudaks.blog.domain.spec.GuestbookService;
 import rudaks.blog.domain.spec.sdo.GuestbookCdo;
 
@@ -16,6 +17,16 @@ public class GuestbookServiceRestAdapter implements GuestbookService
     public GuestbookServiceRestAdapter(NaraRestClient naraRestClient)
     {
         this.naraRestClient = naraRestClient;
+    }
+
+    @Override
+    public List<Guestbook> listGuestbook(int offset)
+    {
+        return naraRestClient.sendAndRecieve(
+                        RequestBuilder.create(BlogRestUrl.GUESTBOOK_S_BUILD)
+                                        .addQueryParam("offset", offset)
+                                        .setResponseType(String.class)
+        );
     }
 
     @Override

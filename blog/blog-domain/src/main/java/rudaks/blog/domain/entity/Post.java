@@ -56,8 +56,11 @@ public class Post extends Entity
                 case "viewCount":
                     this.viewCount = Integer.parseInt(value);
                     break;
-                case "ipaddress":
-                    this.ipaddress = value;
+                case "title":
+                    this.title = value;
+                    break;
+                case "content":
+                    this.content = value;
                     break;
             }
         }
