@@ -33,7 +33,7 @@ public class PostServiceResource implements PostService
 
     @Override
     @GetMapping
-    public List<Post> listPostByCategory(@RequestParam String category, @RequestParam int offset)
+    public List<Post> listPostByCategory(@RequestParam(required = false) String category, @RequestParam int offset)
     {
         return postLogic.listPostByCategory(category, offset);
     }

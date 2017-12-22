@@ -11,6 +11,10 @@
 
 	<artifactId>blog-service</artifactId>
 
+	<properties>
+		<io.springfox.version>2.7.0</io.springfox.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>blog</groupId>
@@ -57,6 +61,17 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.3-1101-jdbc4</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${io.springfox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${io.springfox.version}</version>
 		</dependency>
 
 	</dependencies>

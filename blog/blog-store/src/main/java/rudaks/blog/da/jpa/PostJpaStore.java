@@ -12,6 +12,10 @@ import rudaks.blog.da.jpa.springdata.PostRepository;
 import rudaks.blog.domain.entity.Post;
 import rudaks.blog.domain.store.PostStore;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -21,13 +25,41 @@ public class PostJpaStore implements PostStore
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     @Override
-    public List<Post> retrieveListByCategory(String category, int offset) {
-        PageRequest request = new PageRequest(offset, 10, Sort.Direction.DESC, "createdDate");
+    public List<Post> retrieveListByCategory(String category, int offset)
+    {
+        /*PageRequest request = new PageRequest(offset, 10, Sort.Direction.DESC, "createdDate");
         Page<PostJpo> postJpos = postRepository.findByCategory(category, request);
 
         List<PostJpo> contentList = postJpos.getContent();
-        return PostJpo.toDomains(contentList);
+        return PostJpo.toDomains(contentList);*/
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<PostJpo> query = builder.createQuery(PostJpo.class);
+        Root<PostJpo> root = query.from(PostJpo.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        // condition
+        if (category != null)
+        {
+            Expression<String> exp = root.get("category");
+            predicates.add(exp.in(category));
+        }
+
+        query.where(predicates.toArray(new Predicate[]{}));
+        query.orderBy(builder.desc(root.get("createdDate")));
+        query.select(root);
+
+        TypedQuery<PostJpo> typesQuery = entityManager.createQuery(query)
+                        .setFirstResult(offset)
+                        .setMaxResults(10);
+
+        List<PostJpo> postJpos = typesQuery.getResultList();
+        return PostJpo.toDomains(postJpos);
     }
 
     @Override
