@@ -56,7 +56,7 @@ public class PostJpaStore implements PostStore
 
         TypedQuery<PostJpo> typesQuery = entityManager.createQuery(query)
                         .setFirstResult(offset)
-                        .setMaxResults(10);
+                        .setMaxResults(5);
 
         List<PostJpo> postJpos = typesQuery.getResultList();
         return PostJpo.toDomains(postJpos);

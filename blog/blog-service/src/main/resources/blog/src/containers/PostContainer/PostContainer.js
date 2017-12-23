@@ -6,26 +6,41 @@ class PostContainer extends Component {
     constructor(props) {
         super();
         this.state = {
+            offset: 0,
             fetching: false,
             postList: []
         }
     }
 
-    fetchPostList = async () => {
+    fetchPostList = async (offset) => {
         this.setState({
             fetching: true
         })
-        const postList = await service.getRecentPostList();
+        const postList = await service.getPostList(offset);
         console.error('postList : ' + JSON.stringify(postList));
 
         this.setState({
+            offset: offset,
             postList: postList.data,
             fetching: false
         })
     }
 
+    onNavigateClick = (type) => {
+        const offset = this.state.offset;
+
+        if (type === 'PREV')
+        {
+            this.fetchPostList(offset+5);
+        }
+        else
+        {
+            this.fetchPostList(offset-5);
+        }
+    }
+
     componentDidMount() {
-        this.fetchPostList();
+        this.fetchPostList(0);
     }
 
     render() {
@@ -35,7 +50,9 @@ class PostContainer extends Component {
             <PostWrapper>
                 <PostList posts={postList}/>
                 <CommentList/>
-                <Navigate/>
+                <Navigate
+                    onClick={this.onNavigateClick}
+                    />
             </PostWrapper>
         );
     }
