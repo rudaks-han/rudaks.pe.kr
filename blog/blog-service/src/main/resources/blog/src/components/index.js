@@ -5,6 +5,7 @@ import Navigate from './Navigate/Navigate';
 import Post from './Post/Post';
 import PostList from './PostList/PostList';
 import CommentList from './CommentList/CommentList';
+import Warning from './Warning/Warning';
 
 export {
     Header,
@@ -13,5 +14,6 @@ export {
     Navigate,
     Post,
     PostList,
-    CommentList
+    CommentList,
+    Warning
 }
