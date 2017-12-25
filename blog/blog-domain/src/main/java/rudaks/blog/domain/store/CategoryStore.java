@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CategoryStore
 {
-    List<Category> retreiveList();
+    List<Category> retreiveList(String includeCount);
 
     String create(Category category);
 

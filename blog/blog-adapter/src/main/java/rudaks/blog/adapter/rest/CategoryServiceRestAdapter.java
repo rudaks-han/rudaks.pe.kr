@@ -17,11 +17,12 @@ public class CategoryServiceRestAdapter implements CategoryService
     }
 
     @Override
-    public List<Category> listCategory()
+    public List<Category> listCategory(String includeCount)
     {
         return naraRestClient.sendAndRecieve(
                         RequestBuilder.create(BlogRestUrl.CATEGORY_S_LIST)
-                                        .setResponseType(List.class)
+                                .addQueryParam("includeCount", includeCount)
+                                .setResponseType(List.class)
         );
     }
 }

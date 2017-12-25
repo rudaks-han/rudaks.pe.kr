@@ -22,9 +22,9 @@ public class PostSpringLogic extends PostLogic
     }
 
     @Override
-    public List<Post> listPostByCategory(String category, int offset)
+    public List<Post> listPostByCategory(String category, int offset, int limit)
     {
-        return super.listPostByCategory(category, offset);
+        return super.listPostByCategory(category, offset, limit);
     }
 
     @Override

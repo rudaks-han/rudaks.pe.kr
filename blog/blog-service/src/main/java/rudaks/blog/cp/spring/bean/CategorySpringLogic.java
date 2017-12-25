@@ -20,8 +20,8 @@ public class CategorySpringLogic extends CategoryLogic
     }
 
     @Override
-    public List<Category> listCategory()
+    public List<Category> listCategory(String includeCount)
     {
-        return super.listCategory();
+        return super.listCategory(includeCount);
     }
 }

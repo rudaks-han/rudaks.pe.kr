@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import rudaks.blog.da.jpa.jpo.CategoryJpo;
 import rudaks.blog.da.jpa.springdata.CategoryRepository;
+import rudaks.blog.da.jpa.springdata.PostRepository;
 import rudaks.blog.domain.entity.Category;
 import rudaks.blog.domain.store.CategoryStore;
 
@@ -20,11 +21,25 @@ public class CategoryJpaStore implements CategoryStore
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @Override
-    public List<Category> retreiveList() {
+    public List<Category> retreiveList(String includeCount)
+    {
         Iterable<CategoryJpo> it = categoryRepository.findAll(new Sort(Sort.Direction.DESC, "createdDate"));
         List<CategoryJpo> categoryJpos =
                 StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
+
+        if ("Y".equals(includeCount))
+        {
+            for (CategoryJpo categoryJpo: categoryJpos)
+            {
+                long count = postRepository.countByCategoryAndDeleteFlag(categoryJpo.getCategory(), "N");
+                categoryJpo.setPostCount(count);
+            }
+        }
+
         return CategoryJpo.toDomains(categoryJpos);
     }
 

@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostRepository extends PagingAndSortingRepository<PostJpo, String>
 {
     Page<PostJpo> findByCategory(String category, Pageable pageRequest);
+    Long countByCategoryAndDeleteFlag(String category, String deleteFlag);
 }

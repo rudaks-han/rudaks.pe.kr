@@ -17,7 +17,7 @@ public class CategoryServiceResourceTest extends AbstractBlogApplicationTests
     public void test()
     {
         // 조회
-        List<Category> list = categoryServiceRestAdapter().listCategory();
+        List<Category> list = categoryServiceRestAdapter().listCategory("Y");
         Assert.assertNotNull(list);
     }
 }

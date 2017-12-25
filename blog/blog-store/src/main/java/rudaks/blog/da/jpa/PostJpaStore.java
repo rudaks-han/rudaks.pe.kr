@@ -29,7 +29,7 @@ public class PostJpaStore implements PostStore
     private EntityManager entityManager;
 
     @Override
-    public List<Post> retrieveListByCategory(String category, int offset)
+    public List<Post> retrieveListByCategory(String category, int offset, int limit)
     {
         /*PageRequest request = new PageRequest(offset, 10, Sort.Direction.DESC, "createdDate");
         Page<PostJpo> postJpos = postRepository.findByCategory(category, request);
@@ -56,7 +56,7 @@ public class PostJpaStore implements PostStore
 
         TypedQuery<PostJpo> typesQuery = entityManager.createQuery(query)
                         .setFirstResult(offset)
-                        .setMaxResults(5);
+                        .setMaxResults(limit);
 
         List<PostJpo> postJpos = typesQuery.getResultList();
         return PostJpo.toDomains(postJpos);

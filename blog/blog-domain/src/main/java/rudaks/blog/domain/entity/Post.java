@@ -40,6 +40,7 @@ public class Post extends Entity
         this.viewCount = 0;
         this.attachCount = 0;
         this.deleteFlag = "N";
+        this.oldSeq = 0;
 
         String currDate = DateUtil.getCurrDate("yyyyMMddHHmmss");
         this.createdDate = currDate;

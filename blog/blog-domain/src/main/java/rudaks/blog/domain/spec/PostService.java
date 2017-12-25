@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PostService
 {
-    List<Post> listPostByCategory(String category, int offset);
+    List<Post> listPostByCategory(String category, int offset, int limit);
     Post findPost(String id);
     String registerPost(PostCdo postCdo);
     void modifyPost(String id, NameValueList nameValueList);

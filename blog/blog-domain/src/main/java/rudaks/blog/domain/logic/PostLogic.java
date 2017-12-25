@@ -21,9 +21,9 @@ public class PostLogic implements PostService, PostProvider
     }
 
     @Override
-    public List<Post> listPostByCategory(String category, int offset)
+    public List<Post> listPostByCategory(String category, int offset, int limit)
     {
-        return postStore.retrieveListByCategory(category, offset);
+        return postStore.retrieveListByCategory(category, offset, limit);
     }
 
     @Override

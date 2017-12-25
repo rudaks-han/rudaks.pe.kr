@@ -17,6 +17,8 @@ public class Category extends Entity
     private String createdDate;
     private String updatedDate;
 
+    private long postCount;
+
     public Category() {}
 
     public Category(String id)

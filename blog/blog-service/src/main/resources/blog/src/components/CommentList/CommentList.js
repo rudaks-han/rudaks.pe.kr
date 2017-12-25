@@ -1,7 +1,8 @@
 import React from 'react';
+import './CommentList.css';
 
 const CommentList = () => (
-    <div>
+    <div class="CommentList">
         CommentList
     </div>
 );

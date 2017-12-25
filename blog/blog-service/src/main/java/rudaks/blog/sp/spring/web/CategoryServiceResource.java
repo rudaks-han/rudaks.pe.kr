@@ -19,8 +19,8 @@ public class CategoryServiceResource implements CategoryService
 
     @Override
     @GetMapping
-    public List<Category> listCategory()
+    public List<Category> listCategory(String includeCount)
     {
-        return categoryLogic.listCategory();
+        return categoryLogic.listCategory(includeCount);
     }
 }

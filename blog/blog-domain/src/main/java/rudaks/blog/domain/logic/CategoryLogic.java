@@ -18,8 +18,8 @@ public class CategoryLogic implements CategoryService, CategoryProvider
     }
 
     @Override
-    public List<Category> listCategory()
+    public List<Category> listCategory(String includeCount)
     {
-        return categoryStore.retreiveList();
+        return categoryStore.retreiveList(includeCount);
     }
 }

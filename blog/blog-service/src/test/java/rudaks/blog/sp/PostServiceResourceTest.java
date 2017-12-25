@@ -15,7 +15,7 @@ public class PostServiceResourceTest extends AbstractBlogApplicationTests
     {
         postServiceRestAdapter().findPost(getSamplePostId());
 
-        postServiceRestAdapter().listPostByCategory("jsp", 10);
+        postServiceRestAdapter().listPostByCategory("jsp", 10, 5);
 
         // 수정
         NameValueList nameValues = new NameValueList();

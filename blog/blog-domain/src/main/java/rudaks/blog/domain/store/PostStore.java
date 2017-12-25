@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 public interface PostStore
 {
-    List<Post> retrieveListByCategory(String category, int offset);
+    List<Post> retrieveListByCategory(String category, int offset, int limit);
     String create(Post post);
     Post retrieve(String id) throws NoSuchElementException;
 

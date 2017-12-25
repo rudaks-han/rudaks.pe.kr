@@ -6,6 +6,7 @@ import rudaks.blog.domain.entity.Category;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,9 @@ public class CategoryJpo
     private String description;
     private String createdDate;
     private String updatedDate;
+
+    @Transient
+    private long postCount;
 
     public CategoryJpo() {}
 
