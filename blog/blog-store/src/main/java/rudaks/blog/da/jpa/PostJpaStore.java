@@ -44,7 +44,7 @@ public class PostJpaStore implements PostStore
         List<Predicate> predicates = new ArrayList<>();
 
         // condition
-        if (category != null)
+        if (category != null && category.length() > 0)
         {
             Expression<String> exp = root.get("category");
             predicates.add(exp.in(category));

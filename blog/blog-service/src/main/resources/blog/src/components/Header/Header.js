@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => (
     <div className="navbar navbar-default navbar-fixed-top">
 			<div className="container">
             <div className="navbar-header">
-                <a href="/" className="navbar-brand">Rudaks.co.kr</a>
+                <Link to="/" className="navbar-brand">Rudaks.co.kr</Link>
                 <button className="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span className="icon-bar"></span>
                     <span className="icon-bar"></span>
@@ -15,21 +16,23 @@ const Header = () => (
             <div className="navbar-collapse collapse" id="navbar-main">
                 <ul className="nav navbar-nav">
 		            <li>
-		              <a href="javascript:;" id="menu-about">About</a>
+		              <Link to="/about">About</Link>
 		            </li>
 		            <li className="dropdown">
 		              <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="menu-category">Category <span className="caret"></span></a>
 		              <ul className="dropdown-menu" aria-labelledby="Category">
-		              		<li><a href="/list/jsp">JSP</a></li>
+		              		<li>
+                                <Link to="/post?category=JSP">JSP</Link>
+                            </li>
 
 		              </ul>
 		            </li>
 		            <li>
-		              <a href="/guestbook" id="menu-guestbook">Guestbook</a>
+		              <Link to="/guestbook" id="menu-guestbook">Guestbook</Link>
 		            </li>
 
 		            <li>
-		              <a href="/post-new" id="menu-post-new">New</a>
+		              <Link to="/new" id="menu-post-new">New</Link>
 		            </li>
 
 	          	</ul>

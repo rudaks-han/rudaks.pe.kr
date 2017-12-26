@@ -6,14 +6,26 @@ class PostContainer extends Component {
     constructor(props) {
         super();
         this.state = {
+            category: props.category,
             offset: 0,
             fetching: false,
             postList: [],
+            categoryList: [],
+            recentPostList: [],
             warningVisibility: false
         }
+
+
+        // if (typeof this.props !== 'undefined')
+        // {
+        //     this.setState({
+        //         category: this.props.category
+        //     });
+        // }
     }
 
-    fetchPostList = async (offset) => {
+    fetchPostList = async (offset, category) => {
+
         if (offset < 0)
         {
             this.showWarning();
@@ -21,10 +33,11 @@ class PostContainer extends Component {
         }
 
         this.setState({
-            fetching: true
-        })
-        const postList = await service.getPostList(offset);
-        console.error('postList : ' + JSON.stringify(postList));
+            fetching: true,
+            category: category
+        });
+
+        const postList = await service.getPostList(offset, 5, category);
 
         this.setState({
             offset: offset,
@@ -33,16 +46,32 @@ class PostContainer extends Component {
         })
     }
 
+    fetchCategoryList = async () => {
+        const categoryList = await service.getCategoryList();
+        this.setState({
+            categoryList: categoryList.data
+        });
+    }
+
+    fetchRecentPostList = async (offset) => {
+        const recentPostList = await service.getPostList(offset, 10);
+
+        this.setState({
+            recentPostList: recentPostList.data
+        });
+    }
+
     onNavigateClick = (type) => {
         const offset = this.state.offset;
+        const category = this.state.category;
 
         if (type === 'PREV')
         {
-            this.fetchPostList(offset+5);
+            this.fetchPostList(offset+5, category);
         }
         else
         {
-            this.fetchPostList(offset-5);
+            this.fetchPostList(offset-5, category);
         }
     }
 
@@ -61,16 +90,29 @@ class PostContainer extends Component {
     }
 
     componentDidMount() {
-        this.fetchPostList(0);
+        this.fetchPostList(0, this.props.category);
+        this.fetchCategoryList();
     }
 
     render() {
-        const {postList, fetching, warningVisibility} = this.state;
+        if (this.state.category != this.props.category)
+        {
+            this.setState({
+                category: this.props.category
+            });
+
+            this.fetchPostList(0, this.props.category);
+        }
+
+        const {category, postList, fetching, warningVisibility} = this.state;
 
         return (
             <PostWrapper>
+                <Navigate
+                    onClick={this.onNavigateClick}
+                    disabled={fetching}
+                    />
                 <PostList posts={postList}/>
-                <CommentList/>
                 <Navigate
                     onClick={this.onNavigateClick}
                     disabled={fetching}

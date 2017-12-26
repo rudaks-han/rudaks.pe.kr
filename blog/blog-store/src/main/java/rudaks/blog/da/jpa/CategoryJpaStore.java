@@ -27,7 +27,7 @@ public class CategoryJpaStore implements CategoryStore
     @Override
     public List<Category> retreiveList(String includeCount)
     {
-        Iterable<CategoryJpo> it = categoryRepository.findAll(new Sort(Sort.Direction.DESC, "createdDate"));
+        Iterable<CategoryJpo> it = categoryRepository.findAll(new Sort(Sort.Direction.ASC, "sortOrder"));
         List<CategoryJpo> categoryJpos =
                 StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
 

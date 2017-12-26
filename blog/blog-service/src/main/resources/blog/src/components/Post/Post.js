@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Post.css';
 
 const Post = ({id, username, category, createdDate, title, content}) => (
     <div className="Post">
         <div className="blog-post">
-            <h2 className="blog-post-title"><a href="/post/{id}">{title}</a></h2>
+            <h2 className="blog-post-title"><Link to={`/post/${id}`}>{title}</Link></h2>
             <p className="blog-post-meta">
-                {createdDate} by <a href="#">{username}</a> | <a href="#">{category}</a>
+                {createdDate} by <Link to="#">{username}</Link> | <Link to="#">{category}</Link>
             </p>
             <div className="post-content">
                 <p dangerouslySetInnerHTML={ {__html: content} } />

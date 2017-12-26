@@ -19,7 +19,7 @@ const PostList = ({posts}) => {
     );
 
     return (
-        <ul className="PostList col-lg-8">
+        <ul className="PostList">
             {postList}
         </ul>
     );
