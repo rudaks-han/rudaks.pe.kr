@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Header from './components/include/header';
-import Footer from './components/include/footer';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import { MainLayoutRoute } from './layouts/MainLayout';
+import { LoginLayoutRoute } from './layouts/LoginLayout';
 
 import PostIndex from './containers/post_index';
 import PostNew from './containers/post_new';
@@ -11,26 +11,25 @@ import PostModify from './containers/post_modify';
 import PostList from './containers/post_list';
 import Guestbook from './containers/guestbook';
 import About from './containers/about';
+import Login from './containers/login';
 
 class App extends Component {
   render() {
     return (
         <BrowserRouter>
-                <div>
-                    <Header/>
+            <Switch>
+              <LoginLayoutRoute path="/login" component={Login} />
 
-                    <Route exact path="/" component={PostIndex}/>
-                    <Route exact path="/post/new" component={PostNew}/>
-                    <Route path="/post/view/:id" component={PostView}/>
-                    <Route path="/post/modify/:id" component={PostModify}/>
-                    <Route exact path="/post" component={PostList}/>
-                    <Route exact path="/guestbook" component={Guestbook}/>
-                    <Route exact path="/about" component={About}/>
-
-                    <Footer/>
-                </div>
+              <MainLayoutRoute exact path="/" component={PostIndex} />
+              <MainLayoutRoute exact path="/posts" component={PostList}/>
+              <MainLayoutRoute exact path="/posts/:category" component={PostList}/>
+              <MainLayoutRoute exact path="/post/new" component={PostNew}/>
+              <MainLayoutRoute path="/post/:id" component={PostView}/>
+              <MainLayoutRoute path="/post/modify/:id" component={PostModify}/>
+              <MainLayoutRoute path="/guestbook" component={Guestbook}/>
+              <MainLayoutRoute path="/about" component={About}/>
+            </Switch>
         </BrowserRouter>
-
     );
   }
 }

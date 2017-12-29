@@ -18,7 +18,7 @@ const Header = () => (
 		              <Link to="/about">About</Link>
 		            </li>
 		            <li className="dropdown">
-		              <a className="dropdown-toggle" data-toggle="dropdown" href="#" id="menu-category">Category <span className="caret"></span></a>
+		              <a className="dropdown-toggle" data-toggle="dropdown" id="menu-category">Category <span className="caret"></span></a>
 		              <ul className="dropdown-menu" aria-labelledby="Category">
 		              		<li>
                                 <Link to="/post?category=JSP">JSP</Link>
