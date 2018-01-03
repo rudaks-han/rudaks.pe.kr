@@ -1,30 +1,71 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
 
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import queryString from 'query-string';
 import Post from '../components/post';
 
 class PostList extends Component {
-    shouldComponentUpdate(nextProps, nextState) {
+
+
+    componentWillMount() {
+        console.error('componentWillMount ' + '['+this.props.match.params.category+']');
         this.props.fetchPosts(this.props.match.params.category);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.error('shouldComponentUpdate');
         return true;
     }
 
-    componentWillMount() {
-        this.props.fetchPosts(this.props.match.params.category);
+
+    componentWillUpdate(nextProps, nextState) {
+        console.error('componentWillUpdate ' + '['+this.props.match.params.category+']');
+        return true;
     }
+
+    componentDidMount() {
+        console.error('__componentDidMount');
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.error('__componentDidUpdate' );
+
+        if (prevProps.match.url !== this.props.match.url)
+        {
+            this.props.fetchPosts(this.props.match.params.category);
+        }
+
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.error('componentWillReceiveProps');
+    }
+
 
     renderList() {
 
-        console.error('>>> + ' +this.props.match.url);
+        console.error('renderList');
+        //console.error('this.props ' + JSON.stringify(this.props));
 
-        console.error('postlist renderList ');
+
+        //this.props.posts.map((post, index) => {
+            //console.error(post.title)
+        //});
+
+        if (!this.props.posts) {
+            return (
+                <div>No Data</div>
+            );
+        }
+
+        console.error('postlist renderList ' + this.props.posts.length );
 
         return this.props.posts.map((post, index) => {
             return (
-                <div>
+                <div key={post.id}>
                     {this.props.match.url}
                 <Post
                     key={post.id}
@@ -50,7 +91,9 @@ class PostList extends Component {
 }
 
 function mapStateToProps(state) {
-    return { posts: state.posts.all };
+    return {
+        posts: state.posts.list
+    };
 }
 
-export default connect(mapStateToProps, { fetchPosts })(PostList);
+export default withRouter(connect(mapStateToProps, { fetchPosts }, null, { pure: false })(PostList));

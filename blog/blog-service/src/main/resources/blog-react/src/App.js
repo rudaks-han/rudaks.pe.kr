@@ -20,9 +20,9 @@ class App extends Component {
             <Switch>
               <LoginLayoutRoute path="/login" component={Login} />
 
-              <MainLayoutRoute exact path="/" component={PostIndex} />
+              <MainLayoutRoute exact path="/" component={PostList} />
               <MainLayoutRoute exact path="/posts" component={PostList}/>
-              <MainLayoutRoute exact path="/posts/:category" component={PostList}/>
+              <MainLayoutRoute path="/posts/:category" component={PostList}/>
               <MainLayoutRoute exact path="/post/new" component={PostNew}/>
               <MainLayoutRoute path="/post/:id" component={PostView}/>
               <MainLayoutRoute path="/post/modify/:id" component={PostModify}/>

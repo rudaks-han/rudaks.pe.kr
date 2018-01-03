@@ -5,6 +5,7 @@ import { fetchCategories, fetchRecentPosts } from '../actions';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 
 class NavigatorMenu extends Component {
+
     componentWillMount() {
         this.props.fetchCategories();
         this.props.fetchRecentPosts();
@@ -16,9 +17,25 @@ class NavigatorMenu extends Component {
                 <Link
                     key={category.id}
                     to={`/posts/${category.category}`}
-                    className="list-group-item">{category.name}</Link>
+                    className="list-group-item">{category.name}
+                </Link>
             );
         });
+    }
+
+    renderRecentPostList() {
+        console.error('this.props.recentPosts : ' + this.props.recentPosts)
+        return this.props.recentPosts.map((post) => {
+            return (
+                <li key={post.id} className="ellipsis">
+                    <Link
+                        to={`/post/${post.id}`}>
+                        {post.title}
+                    </Link>
+                </li>
+            )
+        })
+
     }
 
     render() {
@@ -27,7 +44,6 @@ class NavigatorMenu extends Component {
                 <div className="list-group">
 
             		<div className="list-group-item active">Category</div>
-
 
                     {this.renderCategoryList()}
             	</div>
@@ -40,7 +56,7 @@ class NavigatorMenu extends Component {
             		<div className="panel-body">
 
             			<ol className="list-unstyled">
-
+                            {this.renderRecentPostList()}
             			</ol>
 
             		</div>
@@ -52,9 +68,9 @@ class NavigatorMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        categories: state.categories.all,
-        recentPosts: state.posts.recent_posts
+        categories: state.categories.list,
+        recentPosts: state.recentPosts.list
     };
 }
 
-export default withRouter(connect(mapStateToProps, { fetchCategories, fetchRecentPosts })(NavigatorMenu));
+export default connect(mapStateToProps, { fetchCategories, fetchRecentPosts }, null, { pure: false })(NavigatorMenu);

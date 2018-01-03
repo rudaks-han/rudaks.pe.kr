@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Post.css';
 
 const Post = ({id, username, category, createdDate, title, content}) => (
-    <div className="Post">
+    <div className="post">
         <div className="blog-post">
             <h2 className="blog-post-title"><Link to={`/post/${id}`}>{title}</Link></h2>
             <p className="blog-post-meta">

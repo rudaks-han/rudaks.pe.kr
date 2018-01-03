@@ -12,6 +12,7 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 const API_URL = 'http://localhost:9999/api/s/';
 
 export function fetchPosts(category) {
+    console.error(">> action fetchPosts");
     const categoryParam = category ? '&category=' + category : '';
     const request = axios.get(`${API_URL}/posts?offset=0&limit=5${categoryParam}`);
 
