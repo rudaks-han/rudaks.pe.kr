@@ -12,6 +12,7 @@ import rudaks.blog.domain.entity.Category;
 import rudaks.blog.domain.store.CategoryStore;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -23,6 +24,17 @@ public class CategoryJpaStore implements CategoryStore
 
     @Autowired
     private PostRepository postRepository;
+
+    @Override
+    public Category retrieve(String id)
+    {
+        CategoryJpo categoryJpo = categoryRepository.findOne(id);
+        if(categoryJpo == null)
+        {
+            throw new NoSuchElementException(String.format("No Category jpo[ID:%s] to retrieve", id));
+        }
+        return categoryJpo.toDomain();
+    }
 
     @Override
     public List<Category> retreiveList(String includeCount)

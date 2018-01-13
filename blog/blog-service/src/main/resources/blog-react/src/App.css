@@ -2,6 +2,11 @@ body {
     padding-top: 100px;
 }
 
+.loading-div {position: fixed; width: 100%; top:75px; left: 0;}
+.sweet-loading { margin: 0 auto; width: 100px; }
+.input-error {color:red !important;}
+.dropzone-area { width: 100%; height: 40px; border-width: 2px; border-color: #333; border-style: dashed; border-radius: 5px; padding-top:5px; text-align: center; }
+
 .post .blog-post {width:100%; clear:both;}
 .post .btn-addthis {float:left; margin-top:50px; margin-bottom:50px; width:100%;}
 .post .post-content {max-width:800px; word-wrap:break-word;}

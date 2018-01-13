@@ -3,10 +3,7 @@ package rudaks.blog.cp.spring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import rudaks.blog.domain.store.BlogStoreLycler;
-import rudaks.blog.domain.store.CategoryStore;
-import rudaks.blog.domain.store.GuestbookStore;
-import rudaks.blog.domain.store.PostStore;
+import rudaks.blog.domain.store.*;
 
 @Component
 public class BlogStoreSpringLycler implements BlogStoreLycler
@@ -22,6 +19,10 @@ public class BlogStoreSpringLycler implements BlogStoreLycler
     @Autowired
     @Qualifier("guestbookJpaStore")
     private GuestbookStore guestbookStore;
+
+    @Autowired
+    @Qualifier("attachFileJpaStore")
+    private AttachFileStore attachFileStore;
 
     @Override
     public CategoryStore requestCategoryStore()
@@ -39,5 +40,11 @@ public class BlogStoreSpringLycler implements BlogStoreLycler
     public GuestbookStore requestGuestbookStore()
     {
         return guestbookStore;
+    }
+
+    @Override
+    public AttachFileStore requestAttachFileStore()
+    {
+        return attachFileStore;
     }
 }

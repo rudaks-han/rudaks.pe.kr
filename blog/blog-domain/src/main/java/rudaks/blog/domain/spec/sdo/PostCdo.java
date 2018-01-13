@@ -7,6 +7,8 @@ import nara.share.util.json.JsonUtil;
 import rudaks.blog.domain.entity.Category;
 import rudaks.blog.domain.entity.Post;
 
+import java.util.List;
+
 @Data
 public class PostCdo
 {
@@ -23,6 +25,10 @@ public class PostCdo
     private String content;
     private String createdDate;
     private String updatedDate;
+
+    private List<String> filePath;
+    private List<String> fileName;
+    private List<Long> fileSize;
 
     public PostCdo() {}
 

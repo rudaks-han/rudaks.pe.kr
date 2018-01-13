@@ -5,4 +5,5 @@ public interface BlogStoreLycler
     CategoryStore requestCategoryStore();
     PostStore requestPostStore();
     GuestbookStore requestGuestbookStore();
+    AttachFileStore requestAttachFileStore();
 }

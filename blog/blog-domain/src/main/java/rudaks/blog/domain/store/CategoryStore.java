@@ -8,6 +8,7 @@ public interface CategoryStore
 {
     List<Category> retreiveList(String includeCount);
 
+    Category retrieve(String id);
     String create(Category category);
 
     void update(Category category);

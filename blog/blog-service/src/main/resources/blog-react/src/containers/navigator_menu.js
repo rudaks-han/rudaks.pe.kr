@@ -24,7 +24,7 @@ class NavigatorMenu extends Component {
     }
 
     renderRecentPostList() {
-        console.error('this.props.recentPosts : ' + this.props.recentPosts)
+        //console.error('this.props.recentPosts : ' + this.props.recentPosts)
         return this.props.recentPosts.map((post) => {
             return (
                 <li key={post.id} className="ellipsis">

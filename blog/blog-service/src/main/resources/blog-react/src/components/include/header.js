@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar'
 
 const Header = () => (
     <div className="navbar navbar-default navbar-fixed-top">
+        <LoadingBar />
+        
 			<div className="container">
             <div className="navbar-header">
                 <Link to="/" className="navbar-brand">Rudaks.co.kr</Link>

@@ -21,6 +21,8 @@ public class CategoryServiceResource implements CategoryService
     @GetMapping
     public List<Category> listCategory(String includeCount)
     {
+        if (includeCount == null)
+            includeCount = "N";
         return categoryLogic.listCategory(includeCount);
     }
 }

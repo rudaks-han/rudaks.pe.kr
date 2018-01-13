@@ -7,6 +7,9 @@ import nara.share.domain.NameValueList;
 import nara.share.util.date.DateUtil;
 import nara.share.util.json.JsonUtil;
 
+import java.beans.Transient;
+import java.util.List;
+
 @Data
 public class Post extends Entity
 {
@@ -22,6 +25,15 @@ public class Post extends Entity
     private String content;
     private String createdDate;
     private String updatedDate;
+
+    private String formatCreatedDate;
+    private String categoryName;
+
+    private List<AttachFile> attachFiles;
+
+    private String filePath;
+    private String fileName;
+    private String fileSize;
 
     public Post() {}
 
@@ -54,6 +66,15 @@ public class Post extends Entity
             String value = nameValue.getValue();
             switch (nameValue.getName())
             {
+                case "category":
+                    this.category = value;
+                    break;
+                case "username":
+                    this.username = value;
+                    break;
+                case "email":
+                    this.email = value;
+                    break;
                 case "viewCount":
                     this.viewCount = Integer.parseInt(value);
                     break;
@@ -64,6 +85,7 @@ public class Post extends Entity
                     this.content = value;
                     break;
             }
+
         }
     }
 
@@ -84,6 +106,24 @@ public class Post extends Entity
     public static Post fromJson(String json)
     {
         return JsonUtil.fromJson(json, Post.class);
+    }
+
+    public String getFormatCreatedDate()
+    {
+        String result = createdDate;
+        try
+        {
+            if (createdDate == null || createdDate.length() < 14)
+                return null;
+
+            result = DateUtil.formatDateString(createdDate, "yyyyMMddHHmmss", "yyyy-MM-dd HH:mm:ss");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     public static void main(String [] args)
