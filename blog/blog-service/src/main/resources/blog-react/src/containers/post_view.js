@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPost } from '../actions';
+import { fetchPost, deletePost } from '../actions';
 
 import { Link } from 'react-router-dom';
 import Post from '../components/post';
 import Warning from '../components/warning/warning';
+import Confirm from 'react-confirm-bootstrap';
 
 class PostView extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class PostView extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
     }
 
     componentWillMount() {
@@ -45,6 +47,19 @@ class PostView extends Component {
         );
     }
 
+    onDeleteClick(id) {
+        const history =
+        console.error('id  : ' + id)
+        this.props.deletePost(id)
+            .then(() => {
+                this.props.history.push("/")
+            });
+    }
+
+    onConfirm() {
+        // Preform your action.
+    }
+
     renderView() {
         const { post } = this.props;
         const { fetching, warningVisibility } = this.state;
@@ -58,7 +73,7 @@ class PostView extends Component {
         }
 
         return (
-            <div>
+            <div className="post-wrapper">
                 <Post
                     key={post.id}
                     id={post.id}
@@ -72,8 +87,17 @@ class PostView extends Component {
 
                     <div style={{float:'right'}}>
 						<Link to={`/post/modify/${post.id}`} className="btn btn-primary">수정</Link>&nbsp;
-						<Link to={`/post/delete/${post.id}`} className="btn btn-primary">삭제</Link>
+
+                        <Confirm
+                            onConfirm={() => {this.onDeleteClick(post.id)}}
+                            body="이 게시물을 삭제하시겠습니까?"
+                            confirmText="Confirm Delete"
+                            title="게시물 삭제">
+                            <button className="btn btn-primary">삭제</button>
+                        </Confirm>
         			</div>
+
+
             </div>
         );
     }
@@ -93,4 +117,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { fetchPost })(PostView);
+export default connect(mapStateToProps, { fetchPost, deletePost })(PostView);

@@ -105,10 +105,8 @@ public class PostJpaStore implements PostStore
         String id = post.getId();
         if(!postRepository.exists(id))
         {
-            throw new NonExistenceException(String.format("No Post jpo[ID:%s] to update", id));
+            throw new NonExistenceException(String.format("No Post jpo[ID:%s] to delete", id));
         }
-        PostJpo postJpo = postRepository.findOne(id);
-        postJpo.update(post);
-        postRepository.save(postJpo);
+        postRepository.delete(id);
     }
 }

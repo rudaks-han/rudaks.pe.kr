@@ -97,6 +97,7 @@ class PostModify extends Component {
 
     render() {
         const { post } = this.props;
+        //console.error(">>> " + JSON.stringify(post))
 
         if (post == null) {
             return null;
@@ -120,7 +121,8 @@ class PostModify extends Component {
         }) => {
             //const textareaType = <textarea {...input} className="form-control" placeholder={label}  type={type} />;
             const textareaType = <TinyMCE
-                                    content="<p>This is the initial content of the editor</p>"
+                                    {...post.content}
+                                    content={post.content}
                                     config={{
                                       plugins: 'autolink link image lists print preview',
                                       toolbar: 'undo redo | bold italic | alignleft aligncenter alignright'
@@ -231,17 +233,6 @@ class PostModify extends Component {
                                                         </li>
                                                     );
                                                 }, this)
-
-                                                //this.state.attachFiles.map(f => <li key={f.name}>{f.name} ({f.size} bytes)</li>)
-
-                                                //this.state.fileName.map((name, index) => {
-
-                                                    //console.error('=== ' + this.state.fileName.length + ', ' + this.state.fileName);
-                                                    //console.error('name ' + name)
-                                                    // return (
-                                                    //     <li key={index}>{name}</li>
-                                                    // );
-                                                //})
                                             }
                                         </ul>
                                     </div>

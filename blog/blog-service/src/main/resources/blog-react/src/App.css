@@ -7,6 +7,7 @@ body {
 .input-error {color:red !important;}
 .dropzone-area { width: 100%; height: 40px; border-width: 2px; border-color: #333; border-style: dashed; border-radius: 5px; padding-top:5px; text-align: center; }
 
+.post-wrapper {width: 100%; display:inline-block; margin-bottom: 10px;}
 .post .blog-post {width:100%; clear:both;}
 .post .btn-addthis {float:left; margin-top:50px; margin-bottom:50px; width:100%;}
 .post .post-content {max-width:800px; word-wrap:break-word;}
