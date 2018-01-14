@@ -7,6 +7,8 @@ export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 
@@ -72,15 +74,10 @@ export function updatePost(props) {
         i++;
     }
 
-    // let param = {};
-    // param["name"] = "name1";
-    // param["value"] = "value1";
-    // nameValueList.push(param);
-
     paramJson["nameValues"] = nameValueList;
 
     //paramJson.push(params);
-    console.error("paramJson > " + JSON.stringify(paramJson));
+    //console.error("paramJson > " + JSON.stringify(paramJson));
 
     const request = axios.put(`${API_URL}/posts/${props.id}`, paramJson);
 
@@ -118,6 +115,24 @@ export function fetchCategories() {
 
     return {
         type: FETCH_CATEGORIES,
+        payload: request
+    };
+}
+
+export function login(props) {
+    const request = axios.post(`${API_URL}/users/login`, props);
+
+    return {
+        type: LOGIN,
+        payload: request
+    };
+}
+
+export function logout() {
+    const request = axios.post(`${API_URL}/users/logout`);
+
+    return {
+        type: LOGIN,
         payload: request
     };
 }

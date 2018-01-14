@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Post from '../components/post';
 import Warning from '../components/warning/warning';
 import Confirm from 'react-confirm-bootstrap';
+import ReactDisqusComments from 'react-disqus-comments';
 
 class PostView extends Component {
     constructor(props) {
@@ -97,6 +98,14 @@ class PostView extends Component {
                         </Confirm>
         			</div>
 
+                <div>
+                    <ReactDisqusComments
+                        shortname="rudakscokr"
+                        identifier={post.id}
+                        title={post.title}
+                        url={`http://rudaks.pe.kr/post/${post.id}`}
+                        category_id="{post.categoryName"/>
+                </div>
 
             </div>
         );

@@ -6,10 +6,16 @@ import { withRouter } from 'react-router-dom';
 //import queryString from 'query-string';
 import Post from '../components/post';
 
+import Cookies from 'js-cookie';
+
 class PostList extends Component {
     componentWillMount() {
         //console.error('componentWillMount ' + '['+this.props.match.params.category+']');
         this.props.fetchPosts(this.props.match.params.category);
+
+        Cookies.set("a", "1");
+        console.error('>>>> ' + JSON.stringify(Cookies.get()));
+        //console.error('____cookie : ' + JSON.stringify(cookies));
     }
 
     shouldComponentUpdate(nextProps, nextState) {
