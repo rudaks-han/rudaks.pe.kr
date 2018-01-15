@@ -5,17 +5,11 @@ import { login } from "../actions";
 import Cookies from 'js-cookie';
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
-
-        //this.renderField = this.renderField.bind(this);
-    }
-
     onSubmit(props) {
         this.props.login(props)
             .then((res) => {
                 //console.error('res : ' + JSON.stringify(res))
-                if (res.payload.data.result == 'success')
+                if (res.payload.data.result === 'success')
                 {
                     Cookies.set("uid", res.payload.data.key, { expires: 365, path: '' });
                     alert('로그인 되었습니다.');
@@ -52,11 +46,11 @@ class Login extends Component {
     render() {
 
 
-        const { handleSubmit, submitting } = this.props;
+        const { handleSubmit } = this.props;
 
         return (
             <div>
-                <form method="post" className="form-signin" role="form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                <form method="post" className="form-signin" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <Field
                         name="userId"

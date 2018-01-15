@@ -29,7 +29,20 @@ public class PostLogic implements PostService, PostProvider
     @Override
     public List<Post> listPostByCategory(String category, int offset, int limit)
     {
-        return postStore.retrieveListByCategory(category, offset, limit);
+        List<Post> list = postStore.retrieveListByCategory(category, offset, limit);
+
+        for (Post post : list)
+        {
+            try {
+                String categoryName = categoryStore.retrieveByCategory(post.getCategory()).getName();
+                post.setCategoryName(categoryName);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
     }
 
     @Override
@@ -39,7 +52,7 @@ public class PostLogic implements PostService, PostProvider
 
         if (post != null)
         {
-            Category category = categoryStore.retrieve(post.getCategory());
+            Category category = categoryStore.retrieveByCategory(post.getCategory());
             post.setCategoryName(category.getName());
 
             List<AttachFile> attachFiles = attachFileStore.list(id);

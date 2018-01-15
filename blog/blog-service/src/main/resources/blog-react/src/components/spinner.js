@@ -12,7 +12,7 @@ class Spinner extends Component {
 
         const { loadingEnd } = this.props;
 
-        console.error('loadingEnd : '+ loadingEnd)
+//        console.error('loadingEnd : '+ loadingEnd)
         return (
             <div className="loading-div">
                 <div className='sweet-loading'>

@@ -37,6 +37,17 @@ public class CategoryJpaStore implements CategoryStore
     }
 
     @Override
+    public Category retrieveByCategory(String category)
+    {
+        CategoryJpo categoryJpo = categoryRepository.findByCategory(category);
+        if(categoryJpo == null)
+        {
+            throw new NoSuchElementException(String.format("No Category jpo[category:%s] to retrieve", category));
+        }
+        return categoryJpo.toDomain();
+    }
+
+    @Override
     public List<Category> retreiveList(String includeCount)
     {
         Iterable<CategoryJpo> it = categoryRepository.findAll(new Sort(Sort.Direction.ASC, "sortOrder"));

@@ -1,12 +1,17 @@
 package rudaks.blog.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
+import rudaks.blog.interceptor.LoginCheckInterceptor;
 
 @Configuration
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter
 {
+	@Autowired
+	LoginCheckInterceptor loginCheckInterceptor;
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry)
 	{
@@ -28,10 +33,15 @@ public class WebConfig extends WebMvcConfigurerAdapter
 	{
 		registry.addMapping("/api/**")
 						//.allowedOrigins("http://domain2.com")
-						.allowedMethods("GET", "POST", "PUT", "DELETE");
-						//.allowedHeaders("header1", "header2", "header3")
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD");
+						//.allowedHeaders("Authorization");
 						//.exposedHeaders("header1", "header2")
 						//.allowCredentials(false).maxAge(3600);
 	}
 
+	@Override
+	public void addInterceptors(InterceptorRegistry registry)
+	{
+		registry.addInterceptor(loginCheckInterceptor).addPathPatterns("/api/s/*");
+	}
 }

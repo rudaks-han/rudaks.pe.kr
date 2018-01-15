@@ -5,4 +5,5 @@ import rudaks.blog.da.jpa.jpo.CategoryJpo;
 
 public interface CategoryRepository extends PagingAndSortingRepository<CategoryJpo, String>
 {
+    CategoryJpo findByCategory(String category);
 }

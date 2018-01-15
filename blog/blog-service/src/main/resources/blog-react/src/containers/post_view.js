@@ -5,27 +5,56 @@ import { fetchPost, deletePost } from '../actions';
 import { Link } from 'react-router-dom';
 import Post from '../components/post';
 import Warning from '../components/warning/warning';
-import Confirm from 'react-confirm-bootstrap';
+import PostActionButtons from '../components/post_action_buttons';
 import ReactDisqusComments from 'react-disqus-comments';
+import LoginCheck from "../components/include/login_check";
+
 
 class PostView extends Component {
     constructor(props) {
         super();
         this.state = {
             fetching: false, // 요청중인지
-            warningVisibility: false
+            warningVisibility: false,
+            actionButtonVisibility: false
         };
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.match.url !== this.props.match.url)
+        {
+            this.props.fetchPost(this.props.match.params.id);
+
+            window.scrollTo(0, 0);
+        }
+    }
+
     componentDidMount() {
+        const isLogin = LoginCheck();
+
+        //console.error('isLogin : ' + isLogin)
+        //if (isLogin) {
+        this.setState({
+            actionButtonVisibility: isLogin
+        });
+
+        //console.error('11__actionButtonVisibility : ' + JSON.stringify(this.state))
+        //}
+
+
         window.scrollTo(0, 0);
     }
 
     componentWillMount() {
+        const isLogin = LoginCheck();
+
 
         this.setState({
-            fetching: true
+            fetching: true,
+            actionButtonVisibility: isLogin
         });
+
+        //console.error('__actionButtonVisibility : ' + JSON.stringify(this.state))
 
         this.props.fetchPost(this.props.match.params.id);
 
@@ -48,24 +77,15 @@ class PostView extends Component {
         );
     }
 
-    onDeleteClick(id) {
-        const history =
-        console.error('id  : ' + id)
-        this.props.deletePost(id)
-            .then(() => {
-                this.props.history.push("/")
-            });
-    }
-
     onConfirm() {
         // Preform your action.
     }
 
     renderView() {
         const { post } = this.props;
-        const { fetching, warningVisibility } = this.state;
+        const { fetching, warningVisibility, actionButtonVisibility } = this.state;
 
-        console.error("post : " + JSON.stringify(post));
+        //console.error("post : " + JSON.stringify(post));
 
         if (!post) {
             return (
@@ -86,17 +106,16 @@ class PostView extends Component {
                     />
                 <Warning visible={warningVisibility} message="해당 포스트가 존재하지 않습니다."/>
 
-                    <div style={{float:'right'}}>
-						<Link to={`/post/modify/${post.id}`} className="btn btn-primary">수정</Link>&nbsp;
+                <PostActionButtons
+                    postId={post.id}
+                    actionButtonVisibility={actionButtonVisibility}
+                    onDeleteClick={() => {
+                    this.props.deletePost(post.id)
+                        .then(() => {
+                            this.props.history.push("/")
+                        });
+                }} />
 
-                        <Confirm
-                            onConfirm={() => {this.onDeleteClick(post.id)}}
-                            body="이 게시물을 삭제하시겠습니까?"
-                            confirmText="Confirm Delete"
-                            title="게시물 삭제">
-                            <button className="btn btn-primary">삭제</button>
-                        </Confirm>
-        			</div>
 
                 <div>
                     <ReactDisqusComments

@@ -105,7 +105,7 @@ class PostModify extends Component {
 
         const selectCategories = this.props.categories.map((category, index) => {
             return (
-                <option key={category.id} value={category.id}>{category.name}</option>
+                <option key={category.id} value={category.category}>{category.name}</option>
             )
         });
 

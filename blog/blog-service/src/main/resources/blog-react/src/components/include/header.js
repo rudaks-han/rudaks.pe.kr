@@ -4,10 +4,57 @@ import {fetchCategories, fetchRecentPosts} from '../../actions';
 import LoadingBar from 'react-redux-loading-bar'
 import {connect} from "react-redux";
 import {DropdownButton, MenuItem } from 'react-bootstrap';
+import LoginCheck from './login_check';
+import Cookies from 'js-cookie';
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loginFlag: 'N'
+        }
+    }
     componentWillMount() {
+        const isLogin = LoginCheck();
+
+        if (isLogin) {
+            this.setState({
+                loginFlag: 'Y'
+            });
+
+        }
+
         this.props.fetchCategories();
+    }
+
+    logout() {
+        Cookies.remove("uid");
+
+        this.setState({
+            loginFlag: 'N'
+        });
+    }
+
+    renderLoginLink() {
+        const { loginFlag } = this.state;
+
+        if (loginFlag == 'Y') {
+
+            return (
+                <li>
+                    <Link to="/" onClick={this.logout}>Logout</Link>
+                </li>
+            )
+        }
+        else {
+
+            return (
+                <li>
+                    <Link to="/login">Login</Link>
+                </li>
+            )
+        }
     }
 
     onselectCategory() {
@@ -44,9 +91,6 @@ class Header extends Component {
                     </div>
                     <div className="navbar-collapse collapse" id="navbar-main">
                         <ul className="nav navbar-nav">
-                            <li>
-                                <Link to="/about">About</Link>
-                            </li>
                             <li className="dropdown">
                                 <a className="dropdown-toggle" data-toggle="dropdown" id="menu-category">Category <span
                                     className="caret"></span></a>
@@ -69,7 +113,7 @@ class Header extends Component {
                         </form>
 
                         <ul className="nav navbar-nav navbar-right">
-                            <li><a href="/logout">Logout</a></li>
+                            {this.renderLoginLink()}
                         </ul>
                     </div>
                 </div>

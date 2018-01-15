@@ -11,10 +11,11 @@ import Cookies from 'js-cookie';
 class PostList extends Component {
     componentWillMount() {
         //console.error('componentWillMount ' + '['+this.props.match.params.category+']');
+        //console.error('this.props.match.params.category ; ' + this.props.match.params.category)
         this.props.fetchPosts(this.props.match.params.category);
 
-        Cookies.set("a", "1");
-        console.error('>>>> ' + JSON.stringify(Cookies.get()));
+        //Cookies.set("a", "1");
+        //console.error('>>>> ' + JSON.stringify(Cookies.get()));
         //console.error('____cookie : ' + JSON.stringify(cookies));
     }
 
@@ -70,7 +71,7 @@ class PostList extends Component {
                         key={post.id}
                         id={post.id}
                         username={post.username}
-                        category={post.category}
+                        category={post.categoryName}
                         createdDate={post.createdDate}
                         title={post.title}
                         content={post.content}

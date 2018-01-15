@@ -15,19 +15,20 @@ import Guestbook from '../containers/guestbook';
 import About from '../containers/about';
 import Login from '../containers/login';
 
+
 const Routes = () => (
     <BrowserRouter>
         <Switch>
-          <LoginLayoutRoute path="/login" component={Login} />
+            <LoginLayoutRoute path="/login" component={Login} />
 
-          <MainLayoutRoute exact path="/" component={PostList} />
-          <MainLayoutRoute exact path="/posts" component={PostList}/>
-          <MainLayoutRoute path="/posts/:category" component={PostList}/>
-          <MainLayoutRoute exact path="/post/new" component={PostNew}/>
-          <MainLayoutRoute path="/post/modify/:id" component={PostModify}/>
-          <MainLayoutRoute path="/post/:id" component={PostView}/>
-          <MainLayoutRoute path="/guestbook" component={Guestbook}/>
-          <MainLayoutRoute path="/about" component={About}/>
+            <MainLayoutRoute exact path="/" component={PostList} />
+            <MainLayoutRoute exact path="/posts" component={PostList}/>
+            <MainLayoutRoute path="/posts/:category" component={PostList}/>
+            <MainLayoutRoute exact path="/post/new" component={PostNew}/>
+            <MainLayoutRoute path="/post/modify/:id" component={PostModify}/>
+            <MainLayoutRoute path="/post/:id" component={PostView}/>
+            <MainLayoutRoute path="/guestbook" component={Guestbook}/>
+            <MainLayoutRoute path="/about" component={About}/>
         </Switch>
     </BrowserRouter>
 )

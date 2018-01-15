@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_RECENT_POSTS = 'FETCH_RECENT_POSTS';
@@ -14,9 +15,13 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 
 const API_URL = 'http://localhost:9999/api/s';
 
+const axiosConfig = {
+    headers: {'Authorization': Cookies.get('uid') ? Cookies.get('uid'): ''}
+};
+
 export function fetchPosts(category) {
     const categoryParam = category ? '&category=' + category : '';
-    const request = axios.get(`${API_URL}/posts?offset=0&limit=5${categoryParam}`);
+    const request = axios.get(`${API_URL}/posts?offset=0&limit=5${categoryParam}`, axiosConfig);
 
     return {
         type: FETCH_POSTS,
@@ -25,7 +30,7 @@ export function fetchPosts(category) {
 }
 
 export function fetchRecentPosts() {
-    const request = axios.get(`${API_URL}/posts?offset=0&limit=10`);
+    const request = axios.get(`${API_URL}/posts?offset=0&limit=10`, axiosConfig);
 
     return {
         type: FETCH_RECENT_POSTS,
@@ -34,7 +39,7 @@ export function fetchRecentPosts() {
 }
 
 export function fetchPost(id) {
-    const request = axios.get(`${API_URL}/posts/${id}`);
+    const request = axios.get(`${API_URL}/posts/${id}`, axiosConfig);
     return {
         type: FETCH_POST,
         payload: request
@@ -42,7 +47,7 @@ export function fetchPost(id) {
 }
 
 export function createPost(props) {
-    const request = axios.post(`${API_URL}/posts`, props);
+    const request = axios.post(`${API_URL}/posts`, props, axiosConfig);
 
     //console.error('createPost : ' + JSON.stringify(props))
     return {
@@ -64,7 +69,6 @@ export function updatePost(props) {
             if (key == 'attachFiles')
                 continue;
 
-            console.error(key + " -> " + (typeof props[key]));
             param["name"] = key;
             param["value"] = props[key];
             //console.error(key + " -> " + props[key]);
@@ -79,7 +83,7 @@ export function updatePost(props) {
     //paramJson.push(params);
     //console.error("paramJson > " + JSON.stringify(paramJson));
 
-    const request = axios.put(`${API_URL}/posts/${props.id}`, paramJson);
+    const request = axios.put(`${API_URL}/posts/${props.id}`, paramJson, axiosConfig);
 
     return {
         type: UPDATE_POST,
@@ -111,7 +115,7 @@ export function uploadFile(formData) {
 }
 
 export function fetchCategories() {
-    const request = axios.get(`${API_URL}/categories`);
+    const request = axios.get(`${API_URL}/categories`, axiosConfig);
 
     return {
         type: FETCH_CATEGORIES,

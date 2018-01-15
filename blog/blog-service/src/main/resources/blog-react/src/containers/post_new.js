@@ -24,12 +24,12 @@ class PostNew extends Component {
     onDrop(files) {
         files.forEach(file => {
             //req.attach(file.name, file);
-            console.error(">>>" + file.name)
+            //console.error(">>>" + file.name)
             var formData = new FormData();
             formData.append("attachFile", file);
             this.props.uploadFile(formData)
                 .then(res => {
-                    console.error(JSON.stringify(res))
+                    //console.error(JSON.stringify(res))
                     const data = res.payload.data;
 
                     this.setState({
@@ -59,7 +59,7 @@ class PostNew extends Component {
     render() {
         const selectCategories = this.props.categories.map((category, index) => {
             return (
-                <option key={category.id} value={category.id}>{category.name}</option>
+                <option key={category.id} value={category.category}>{category.name}</option>
             )
         });
 
