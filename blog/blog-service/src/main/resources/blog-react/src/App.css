@@ -2,6 +2,7 @@ body {
     padding-top: 100px;
 }
 
+.navbar-fixed-top div {z-index: 999;}
 .loading-div {position: fixed; width: 100%; top:75px; left: 0;}
 .sweet-loading { margin: 0 auto; width: 100px; }
 .input-error {color:red !important;}

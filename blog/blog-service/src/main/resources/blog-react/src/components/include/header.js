@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import {fetchCategories, fetchRecentPosts} from '../../actions';
-import LoadingBar from 'react-redux-loading-bar'
 import {connect} from "react-redux";
-import {DropdownButton, MenuItem } from 'react-bootstrap';
+import { NavDropdown, MenuItem, Navbar, Nav, NavItem } from 'react-bootstrap';
 import LoginCheck from './login_check';
 import Cookies from 'js-cookie';
+import { loadProgressBar } from 'axios-progress-bar';
 
 class Header extends Component {
     constructor(props) {
@@ -62,61 +62,47 @@ class Header extends Component {
     }
 
 	renderCategoryList() {
+        const menuItem = this.props.categories.map((category, index) => {
+            return (
+                <MenuItem key={index} onClick={() => { this.props.history.push(`/posts/${category.category}`) }}>{category.name}</MenuItem>
+            );
+
+        });
         return (
-            <ul className="dropdown-menu" id="dropdown">
-                <li><a href="#books">Books</a></li>
-                <li><a href="#podcasts">Podcasts</a></li>
-                <li><a href="#">Tech I Like</a></li>
-                <li><a href="#">About me</a></li>
-                <li><a href="#addBlog">Add a Blog</a></li>
-            </ul>
+            <NavDropdown eventKey={3} title="Category" id="basic-nav-dropdown">
+                {menuItem}
+            </NavDropdown>
         );
 
 	}
 
 	render() {
+        loadProgressBar();
         return (
-            <div className="navbar navbar-default navbar-fixed-top">
-                <LoadingBar/>
+            <div className="navbar-fixed-top">
 
-                <div className="container">
-                    <div className="navbar-header">
-                        <Link to="/" className="navbar-brand">Rudaks.co.kr</Link>
-                        <button className="navbar-toggle collapsed" type="button" data-toggle="collapse"
-                                data-target="#navbar-main">
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div className="navbar-collapse collapse" id="navbar-main">
-                        <ul className="nav navbar-nav">
-                            <li className="dropdown">
-                                <a className="dropdown-toggle" data-toggle="dropdown" id="menu-category">Category <span
-                                    className="caret"></span></a>
+                <Navbar>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <a href="/">Rudaks.co.kr</a>
+                        </Navbar.Brand>
+                        <Navbar.Toggle />
+                    </Navbar.Header>
+                    <Navbar.Collapse>
+                        <Nav>
+                            <NavItem eventKey={1} onClick={() => { this.props.history.push('/about') }}>
+                                About
+                            </NavItem>
 
-									{this.renderCategoryList()}
+                            {this.renderCategoryList()}
 
+                            <NavItem eventKey={1} onClick={() => { this.props.history.push('/guestbook') }}>
+                                Guestbook
+                            </NavItem>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
 
-                            </li>
-                            <li>
-                                <Link to="/guestbook" id="menu-guestbook">Guestbook</Link>
-                            </li>
-
-                            <li>
-                                <Link to="/post/new" id="menu-post-new">New</Link>
-                            </li>
-
-                        </ul>
-                        <form className="navbar-form navbar-left">
-                            <input type="text" className="form-control col-lg-8" placeholder="Search"/>
-                        </form>
-
-                        <ul className="nav navbar-nav navbar-right">
-                            {this.renderLoginLink()}
-                        </ul>
-                    </div>
-                </div>
             </div>
         )
     }
@@ -128,4 +114,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { fetchCategories }, null, { pure: false })(Header);
+export default withRouter(connect(mapStateToProps, { fetchCategories }, null, { pure: false })(Header));

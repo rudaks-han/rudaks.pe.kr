@@ -3,57 +3,98 @@ import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
 
 import { withRouter } from 'react-router-dom';
-//import queryString from 'query-string';
 import Post from '../components/post';
-
-import Cookies from 'js-cookie';
+import { Pager } from 'react-bootstrap';
+import queryString from 'query-string';
 
 class PostList extends Component {
-    componentWillMount() {
-        //console.error('componentWillMount ' + '['+this.props.match.params.category+']');
-        //console.error('this.props.match.params.category ; ' + this.props.match.params.category)
-        this.props.fetchPosts(this.props.match.params.category);
+    constructor(props) {
+        super(props);
 
-        //Cookies.set("a", "1");
-        //console.error('>>>> ' + JSON.stringify(Cookies.get()));
-        //console.error('____cookie : ' + JSON.stringify(cookies));
+        const category = this.props.match.params.category;
+        const query = queryString.parse(this.props.location.search);
+        const offset = query.offset;
+
+        this.state = {
+            category: category,
+            offset: offset
+        };
+
+    }
+
+    componentWillMount() {
+        const query = queryString.parse(this.props.location.search);
+        const offset = query.offset ? query.offset : 0;
+        this.setState({
+            offset: offset
+        });
+        this.props.fetchPosts(this.props.match.params.category, offset);
+
+        console.error('componentWillMount')
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        //console.error('shouldComponentUpdate');
         return true;
     }
 
-
     componentWillUpdate(nextProps, nextState) {
-        //this.setState({ loadingEnd: true });
-        //console.error('>>>> nextProps : ' + JSON.stringify(nextProps))
-        //console.error('nextState : ' + JSON.stringify(nextState))
-        //console.error('componentWillUpdate ' + '['+this.props.match.params.category+']');
-
         return true;
     }
 
     componentDidMount() {
-        //console.error('__componentDidMount');
-        //this.setState({loadingEnd: true});
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // 안됨
-        //console.error('__componentDidUpdate' );
-
         if (prevProps.match.url !== this.props.match.url)
         {
-            this.props.fetchPosts(this.props.match.params.category);
-
-            //this.setState({loadingEnd: true});
+            const query = queryString.parse(this.props.location.search);
+            const offset = query.offset ? query.offset : 0;
+            this.setState({
+                offset: offset
+            });
+            this.props.fetchPosts(this.props.match.params.category, offset);
+            console.error('componentDidUpdate')
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        //console.error('componentWillReceiveProps');
-        //this.setState({ loadingEnd: false });
+    }
+
+    previousPage() {
+        const offset = this.state.offset ? this.state.offset : 0;
+        const nextOffset = Number(offset) + 5;
+        this.setState({
+            offset: nextOffset
+        });
+        this.props.fetchPosts(this.state.category, nextOffset);
+        this.props.history.push('?offset=' + nextOffset)
+    }
+
+    nextPage() {
+        const offset = this.state.offset ? this.state.offset : 0;
+        const prevOffset = Number(offset) - 5;
+        this.setState({
+            offset: prevOffset
+        });
+        this.props.fetchPosts(this.state.category, prevOffset);
+        this.props.history.push('?offset=' + prevOffset)
+    }
+
+    renderPager() {
+        return (
+            <Pager>
+                <Pager.Item previous
+                    onClick={this.previousPage.bind(this)}
+                            href="#">
+                    &larr; Previous Page
+                </Pager.Item>
+                <Pager.Item next
+                     onClick={this.nextPage.bind(this)}
+                            href="#">
+                    Next Page &rarr;
+                </Pager.Item>
+            </Pager>
+        );
     }
 
     renderList() {
@@ -72,7 +113,7 @@ class PostList extends Component {
                         id={post.id}
                         username={post.username}
                         category={post.categoryName}
-                        createdDate={post.createdDate}
+                        createdDate={post.formatCreatedDate}
                         title={post.title}
                         content={post.content}
                         />
@@ -86,8 +127,11 @@ class PostList extends Component {
 
         return (
             <div className="col-lg-8">
+                {this.renderPager()}
 
                 {this.renderList()}
+
+                {this.renderPager()}
             </div>
         );
     }

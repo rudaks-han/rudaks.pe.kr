@@ -53,10 +53,15 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -89,7 +94,7 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>blog/**</exclude>
+                    <exclude>blog-react/**</exclude>
                 </excludes>
             </resource>
         </resources>
@@ -103,7 +108,7 @@
                         <id>exec-npm-install</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <workingDirectory>${project.basedir}/src/main/resources/blog</workingDirectory>
+                            <workingDirectory>${project.basedir}/src/main/resources/blog-react</workingDirectory>
                             <executable>npm</executable>
                             <arguments>
                                 <argument>install</argument>
@@ -117,7 +122,7 @@
                         <id>exec-npm-run-build</id>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <workingDirectory>${project.basedir}/src/main/resources/blog</workingDirectory>
+                            <workingDirectory>${project.basedir}/src/main/resources/blog-react</workingDirectory>
                             <executable>npm</executable>
                             <arguments>
                                 <argument>run</argument>
@@ -146,7 +151,7 @@
                             <outputDirectory>${basedir}/target/classes/dist</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.basedir}/src/main/resources/blog/build/</directory>
+                                    <directory>${project.basedir}/src/main/resources/blog-react/build/</directory>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>

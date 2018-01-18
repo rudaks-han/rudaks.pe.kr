@@ -19,9 +19,10 @@ const axiosConfig = {
     headers: {'Authorization': Cookies.get('uid') ? Cookies.get('uid'): ''}
 };
 
-export function fetchPosts(category) {
+export function fetchPosts(category, offset) {
     const categoryParam = category ? '&category=' + category : '';
-    const request = axios.get(`${API_URL}/posts?offset=0&limit=5${categoryParam}`, axiosConfig);
+    if (!offset) offset = 0;
+    const request = axios.get(`${API_URL}/posts?offset=${offset}&limit=5${categoryParam}`, axiosConfig);
 
     return {
         type: FETCH_POSTS,
@@ -103,7 +104,8 @@ export function deletePost(id) {
 export function uploadFile(formData) {
     const request = axios.post(`${API_URL}/posts/upload-file`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization': Cookies.get('uid') ? Cookies.get('uid'): ''
         }
     });
 

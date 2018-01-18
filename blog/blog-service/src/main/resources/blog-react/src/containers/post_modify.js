@@ -80,11 +80,13 @@ class PostModify extends Component {
         if (post !== null) {
             const { filePath, fileName, fileSize } = post;
 
-            this.setState({
-                filePath: [...filePath.split(',')],
-                fileName: [...fileName.split(',')],
-                fileSize: [...fileSize.split(',')]
-            });
+            if (fileName) {
+                this.setState({
+                    filePath: [...filePath.split(',')],
+                    fileName: [...fileName.split(',')],
+                    fileSize: [...fileSize.split(',')]
+                });
+            }
         }
     }
 
@@ -226,6 +228,7 @@ class PostModify extends Component {
                                         <ul>
                                             {
                                                 this.state.fileName.map(function(name, index) {
+                                                    if (!name) return null;
                                                     return (
                                                         <li key={index}>{name}<button
                                                             onClick={(e) => this.removeAttachFile(index, e)}

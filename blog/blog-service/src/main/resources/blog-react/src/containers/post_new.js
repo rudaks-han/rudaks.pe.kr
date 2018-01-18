@@ -16,11 +16,6 @@ class PostNew extends Component {
         }
     }
 
-    test() {
-        const { filePath } = this.state;
-        alert(filePath);
-    }
-
     onDrop(files) {
         files.forEach(file => {
             //req.attach(file.name, file);
@@ -183,9 +178,8 @@ class PostNew extends Component {
 
                       <div className="form-group">
                         <div className="col-lg-10 col-lg-offset-2 text-right">
-                          <button type="submit" className="btn btn-primary" disabled={submitting}>등록</button>
+                          <button type="submit" className="btn btn-primary" disabled={submitting}>등록</button>&nbsp;
                           <Link to="/" className="btn btn-default">취소</Link>
-                          <button onClick={this.test.bind(this)}>테스트</button>
                         </div>
                       </div>
                     </fieldset>

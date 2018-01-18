@@ -23,12 +23,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
                     throws Exception
     {
-        if (!request.getRequestURI().startsWith("/api/s/"))
+        String uri = request.getRequestURI();
+        if (!uri.startsWith("/api/s/"))
         {
             return true;
         }
 
         String authorization = request.getHeader("Authorization");
+        boolean isAdmin = false;
 
         if (authorization != null)
         {
@@ -36,11 +38,26 @@ public class LoginCheckInterceptor implements HandlerInterceptor
 
             if (adminUserId.equals(userId))
             {
+                request.setAttribute("role", "admin");
                 response.setHeader("role", "admin");
+                isAdmin = true;
             }
         }
 
-        request.setAttribute("role", "admin");
+        String method = request.getMethod();
+        String role = (String) request.getAttribute("role");
+
+        System.err.println("authorization : " + authorization);
+        System.err.println("role : " + role);
+
+        if (uri.startsWith("/api/s/posts")
+                && ("POST".equals(method) || "PUT".equals(method) || "DELETE".equals(method)))
+        {
+            if (!isAdmin)
+            {
+                return false;
+            }
+        }
 
         return true;
     }

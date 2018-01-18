@@ -6,13 +6,11 @@ import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 //import routes from './routes';
 import promise from 'redux-promise';
-import { loadingBarMiddleware } from 'react-redux-loading-bar';
 import './index.css';
 import App from './App';
 
 const createStoreWithMiddleware = applyMiddleware(
-    promise,
-    loadingBarMiddleware()
+    promise
 )(createStore);
 
 ReactDOM.render(
