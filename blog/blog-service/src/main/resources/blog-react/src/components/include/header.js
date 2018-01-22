@@ -1,60 +1,25 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import {fetchCategories, fetchRecentPosts} from '../../actions';
+import { fetchCategories, fetchRecentPosts, login, logout, checkLogin } from '../../actions';
 import {connect} from "react-redux";
-import { NavDropdown, MenuItem, Navbar, Nav, NavItem } from 'react-bootstrap';
-import LoginCheck from './login_check';
+import { NavDropdown, MenuItem, Navbar, Nav, NavItem, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import { loadProgressBar } from 'axios-progress-bar';
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loginFlag: 'N'
-        }
-    }
     componentWillMount() {
-        const isLogin = LoginCheck();
-
-        if (isLogin) {
-            this.setState({
-                loginFlag: 'Y'
-            });
-
-        }
-
         this.props.fetchCategories();
+        this.props.checkLogin();
     }
 
-    logout() {
-        Cookies.remove("uid");
-
-        this.setState({
-            loginFlag: 'N'
-        });
-    }
-
-    renderLoginLink() {
-        const { loginFlag } = this.state;
-
-        if (loginFlag == 'Y') {
-
-            return (
-                <li>
-                    <Link to="/" onClick={this.logout}>Logout</Link>
-                </li>
-            )
+    authButton() {
+        //const { loginFlag } = this.state;
+        console.error('this.props.loginFlag : ' + this.props.loginFlag);
+        if (this.props.loginFlag) {
+            return <Link to='/' onClick={() => this.props.logout()}>Logout</Link>
         }
-        else {
 
-            return (
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
-            )
-        }
+        return <Link to='/login'>Login</Link>
     }
 
     onselectCategory() {
@@ -99,6 +64,15 @@ class Header extends Component {
                             <NavItem eventKey={1} onClick={() => { this.props.history.push('/guestbook') }}>
                                 Guestbook
                             </NavItem>
+
+                            <NavItem eventKey={1} onClick={() => { this.props.history.push('/post/new') }}>
+                                New
+                            </NavItem>
+                        </Nav>
+                        <Nav pullRight>
+                            <NavItem eventKey={1} href="#">
+                                {this.authButton()}
+                            </NavItem>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
@@ -110,8 +84,9 @@ class Header extends Component {
 
 function mapStateToProps(state) {
     return {
-        categories: state.categories.list
+        categories: state.categories.list,
+        loginFlag: state.loginFlag
     };
 }
 
-export default withRouter(connect(mapStateToProps, { fetchCategories }, null, { pure: false })(Header));
+export default withRouter(connect(mapStateToProps, { fetchCategories, checkLogin, login, logout }, null, { pure: false })(Header));

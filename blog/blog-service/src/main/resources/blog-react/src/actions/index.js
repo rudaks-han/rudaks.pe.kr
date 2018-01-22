@@ -10,6 +10,7 @@ export const DELETE_POST = 'DELETE_POST';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const LOGIN_FLAG = 'LOGIN_FLAG';
 
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 
@@ -135,10 +136,28 @@ export function login(props) {
 }
 
 export function logout() {
-    const request = axios.post(`${API_URL}/users/logout`);
+    Cookies.remove("uid");
 
     return {
-        type: LOGIN,
-        payload: request
+        type: LOGIN_FLAG,
+        payload: false
+    };
+}
+
+export function checkLogin() {
+    console.error('>> checkLogin');
+
+    const uid = Cookies.get('uid');
+    let loginFlag = false;
+
+    if (uid)
+    {
+        loginFlag = true;
+    }
+
+
+    return {
+        type: LOGIN_FLAG,
+        payload: loginFlag
     };
 }

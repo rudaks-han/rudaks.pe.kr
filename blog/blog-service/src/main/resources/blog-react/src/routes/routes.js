@@ -6,7 +6,8 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { MainLayoutRoute } from '../layouts/MainLayout';
 import { LoginLayoutRoute } from '../layouts/LoginLayout';
 
-import PostIndex from '../containers/post_index';
+import requireLogin from '../containers/require_login';
+
 import PostNew from '../containers/post_new';
 import PostView from '../containers/post_view';
 import PostModify from '../containers/post_modify';
@@ -24,8 +25,8 @@ const Routes = () => (
             <MainLayoutRoute exact path="/" component={PostList} />
             <MainLayoutRoute exact path="/posts" component={PostList}/>
             <MainLayoutRoute path="/posts/:category" component={PostList}/>
-            <MainLayoutRoute exact path="/post/new" component={PostNew}/>
-            <MainLayoutRoute path="/post/modify/:id" component={PostModify}/>
+            <MainLayoutRoute exact path="/post/new" component={requireLogin(PostNew)}/>
+            <MainLayoutRoute path="/post/modify/:id" component={requireLogin(PostModify)}/>
             <MainLayoutRoute path="/post/:id" component={PostView}/>
             <MainLayoutRoute path="/guestbook" component={Guestbook}/>
             <MainLayoutRoute path="/about" component={About}/>

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPost, deletePost } from '../actions';
+import {fetchPost, deletePost, checkLogin} from '../actions';
 
 import { Link } from 'react-router-dom';
 import Post from '../components/post';
 import Warning from '../components/warning/warning';
 import PostActionButtons from '../components/post_action_buttons';
 import ReactDisqusComments from 'react-disqus-comments';
-import LoginCheck from "../components/include/login_check";
+//import LoginCheck from "../components/include/login_check";
 
 
 class PostView extends Component {
@@ -30,12 +30,12 @@ class PostView extends Component {
     }
 
     componentDidMount() {
-        const isLogin = LoginCheck();
+        //const isLogin = false; //LoginCheck();
 
-        //console.error('isLogin : ' + isLogin)
+        console.error('this.props.loginFlag : ' + this.props.loginFlag)
         //if (isLogin) {
         this.setState({
-            actionButtonVisibility: isLogin
+            actionButtonVisibility: this.props.loginFlag
         });
 
         //console.error('11__actionButtonVisibility : ' + JSON.stringify(this.state))
@@ -46,12 +46,14 @@ class PostView extends Component {
     }
 
     componentWillMount() {
-        const isLogin = LoginCheck();
+        this.props.checkLogin();
+
+        //const isLogin = false; //LoginCheck();
 
 
         this.setState({
             fetching: true,
-            actionButtonVisibility: isLogin
+            actionButtonVisibility: this.props.loginFlag
         });
 
         //console.error('__actionButtonVisibility : ' + JSON.stringify(this.state))
@@ -141,8 +143,9 @@ class PostView extends Component {
 
 function mapStateToProps(state) {
     return {
-        post: state.posts.post
+        post: state.posts.post,
+        loginFlag: state.loginFlag
     };
 }
 
-export default connect(mapStateToProps, { fetchPost, deletePost })(PostView);
+export default connect(mapStateToProps, { checkLogin, fetchPost, deletePost })(PostView);
