@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Post from '../components/post';
 import { Pager } from 'react-bootstrap';
 import queryString from 'query-string';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class PostList extends Component {
     constructor(props) {
@@ -157,13 +158,20 @@ class PostList extends Component {
         //const { loadingEnd } = this.state;
 
         return (
-            <div className="col-lg-8">
-                {this.renderPager()}
 
-                {this.renderList()}
+                <div key={1} className="col-lg-8">
+                    {this.renderPager()}
 
-                {this.renderPager()}
-            </div>
+                    <CSSTransitionGroup
+                        transitionName="fade"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}>
+                        {this.renderList()}
+                    </CSSTransitionGroup>
+
+                    {this.renderPager()}
+                </div>
+
         );
     }
 }

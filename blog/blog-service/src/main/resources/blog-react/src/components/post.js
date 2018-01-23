@@ -14,9 +14,9 @@ const Post = ({id, username, category, createdDate, title, content}) => (
         </div>
 
 
-        <div className="btn-addthis">
-            <span><a href="/post/{id}#disqus_thread" data-disqus-identifier="post_{id}">comment</a></span>
-        </div>
+        {/*<div className="btn-addthis">*/}
+            {/*<span><a href={`/post/${id}#disqus_thread`} data-disqus-identifier={`post_${id}`}>comment</a></span>*/}
+        {/*</div>*/}
     </div>
 );
 

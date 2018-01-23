@@ -10,7 +10,8 @@ const INITIAL_STATE = { list: [], post: null, category: null, file: null };
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case FETCH_POST:
-            return { ...state, post: action.payload.data };
+            //console.error('action.payload.data : ' + JSON.stringify(action.payload.data))
+            return { ...state, post: action.payload.data, affectedCount: action.payload.data ? 1 : 0 };
         case FETCH_POSTS:
             return { ...state, list: action.payload.data };
         case UPLOAD_FILE:

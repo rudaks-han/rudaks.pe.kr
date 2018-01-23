@@ -63,12 +63,11 @@ export function updatePost(props) {
     let paramJson = {};
     let nameValueList = [];
 
-    var i=0;
     for (var key in props) {
         let param = {};
 
         if (props.hasOwnProperty(key)) {
-            if (key == 'attachFiles')
+            if (key === 'attachFiles')
                 continue;
 
             param["name"] = key;
@@ -76,8 +75,6 @@ export function updatePost(props) {
             //console.error(key + " -> " + props[key]);
             nameValueList.push(param);
         }
-
-        i++;
     }
 
     paramJson["nameValues"] = nameValueList;

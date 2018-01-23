@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { fetchCategories, fetchRecentPosts, login, logout, checkLogin } from '../../actions';
+import { fetchCategories, login, logout, checkLogin } from '../../actions';
 import {connect} from "react-redux";
-import { NavDropdown, MenuItem, Navbar, Nav, NavItem, Button } from 'react-bootstrap';
-import Cookies from 'js-cookie';
+import { NavDropdown, MenuItem, Navbar, Nav, NavItem } from 'react-bootstrap';
 import { loadProgressBar } from 'axios-progress-bar';
 
 class Header extends Component {
@@ -13,13 +12,14 @@ class Header extends Component {
     }
 
     authButton() {
-        //const { loginFlag } = this.state;
-        console.error('this.props.loginFlag : ' + this.props.loginFlag);
         if (this.props.loginFlag) {
             return <Link to='/' onClick={() => this.props.logout()}>Logout</Link>
+        } else {
+            return (
+                <Link to='/login'>Login</Link>
+            );
         }
 
-        return <Link to='/login'>Login</Link>
     }
 
     onselectCategory() {
@@ -55,13 +55,13 @@ class Header extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse>
                         <Nav>
-                            <NavItem eventKey={1} onClick={() => { this.props.history.push('/about') }}>
+                            <NavItem eventKey={1} onClick={() => { alert('준비중입니다.') }}>
                                 About
                             </NavItem>
 
                             {this.renderCategoryList()}
 
-                            <NavItem eventKey={1} onClick={() => { this.props.history.push('/guestbook') }}>
+                            <NavItem eventKey={1} onClick={() => { alert('준비중입니다.') }}>
                                 Guestbook
                             </NavItem>
 
@@ -69,11 +69,11 @@ class Header extends Component {
                                 New
                             </NavItem>
                         </Nav>
-                        <Nav pullRight>
-                            <NavItem eventKey={1} href="#">
+                        <Navbar.Text pullRight>
+
                                 {this.authButton()}
-                            </NavItem>
-                        </Nav>
+
+                        </Navbar.Text>
                     </Navbar.Collapse>
                 </Navbar>
 

@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {fetchPost, deletePost, checkLogin} from '../actions';
 
-import { Link } from 'react-router-dom';
 import Post from '../components/post';
 import Warning from '../components/warning/warning';
 import PostActionButtons from '../components/post_action_buttons';
 import ReactDisqusComments from 'react-disqus-comments';
-//import LoginCheck from "../components/include/login_check";
+import { CSSTransitionGroup } from 'react-transition-group';
 
 
 class PostView extends Component {
@@ -30,17 +29,9 @@ class PostView extends Component {
     }
 
     componentDidMount() {
-        //const isLogin = false; //LoginCheck();
-
-        console.error('this.props.loginFlag : ' + this.props.loginFlag)
-        //if (isLogin) {
         this.setState({
             actionButtonVisibility: this.props.loginFlag
         });
-
-        //console.error('11__actionButtonVisibility : ' + JSON.stringify(this.state))
-        //}
-
 
         window.scrollTo(0, 0);
     }
@@ -48,15 +39,11 @@ class PostView extends Component {
     componentWillMount() {
         this.props.checkLogin();
 
-        //const isLogin = false; //LoginCheck();
-
-
         this.setState({
             fetching: true,
             actionButtonVisibility: this.props.loginFlag
         });
 
-        //console.error('__actionButtonVisibility : ' + JSON.stringify(this.state))
 
         this.props.fetchPost(this.props.match.params.id);
 
@@ -84,28 +71,40 @@ class PostView extends Component {
     }
 
     renderView() {
-        const { post } = this.props;
-        const { fetching, warningVisibility, actionButtonVisibility } = this.state;
+        //console.error('this.props : ' + JSON.stringify(this.props))
+        const { post, affectedCount } = this.props;
+        const { warningVisibility, actionButtonVisibility } = this.state;
 
-        //console.error("post : " + JSON.stringify(post));
+        console.error('affectedCount : ' + affectedCount)
 
-        if (!post) {
+        if (affectedCount == undefined) {
             return (
                 <div>Loading...</div>
                 );
         }
 
+        if (affectedCount == 0) {
+            return <Warning visible={true} message="해당 포스트가 존재하지 않습니다."/>;
+        }
+
+        const transitionOptions = {
+            transitionName: 'fade',
+            transitionEnterTimeout: 500,
+            transitionLeaveTimeout: 500
+        };
+
         return (
-            <div className="post-wrapper">
-                <Post
-                    key={post.id}
-                    id={post.id}
-                    username={post.username}
-                    category={post.categoryName}
-                    createdDate={post.formatCreatedDate}
-                    title={post.title}
-                    content={post.content}
-                    />
+            <div key={1} className="post-wrapper">
+                    <Post
+                        key={post.id}
+                        id={post.id}
+                        username={post.username}
+                        category={post.categoryName}
+                        createdDate={post.formatCreatedDate}
+                        title={post.title}
+                        content={post.content}
+                        />
+
                 <Warning visible={warningVisibility} message="해당 포스트가 존재하지 않습니다."/>
 
                 <PostActionButtons
@@ -125,7 +124,7 @@ class PostView extends Component {
                         identifier={post.id}
                         title={post.title}
                         url={`http://rudaks.pe.kr/post/${post.id}`}
-                        category_id="{post.categoryName"/>
+                        category_id={post.categoryName} />
                 </div>
 
             </div>
@@ -135,7 +134,12 @@ class PostView extends Component {
     render() {
         return (
             <div className="col-lg-8">
+                <CSSTransitionGroup
+                    transitionName="fade"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
                 {this.renderView()}
+                </CSSTransitionGroup>
             </div>
         );
     }
@@ -144,6 +148,7 @@ class PostView extends Component {
 function mapStateToProps(state) {
     return {
         post: state.posts.post,
+        affectedCount: state.posts.affectedCount,
         loginFlag: state.loginFlag
     };
 }

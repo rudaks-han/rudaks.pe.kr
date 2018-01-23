@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
 import { Field, reduxForm } from 'redux-form'
 import {connect} from "react-redux";
 import { login } from "../actions";
 import Cookies from 'js-cookie';
 
 class Login extends Component {
+    componentDidMount() {
+        ReactDOM.findDOMNode(this.userIdInput).getElementsByTagName("input")[0].focus();
+    }
+
     onSubmit(props) {
         this.props.login(props)
             .then((res) => {
@@ -53,6 +58,7 @@ class Login extends Component {
                 <form method="post" className="form-signin" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <Field
+                        ref={(input) => { this.userIdInput = input; }}
                         name="userId"
                         type="text"
                         label="userId"

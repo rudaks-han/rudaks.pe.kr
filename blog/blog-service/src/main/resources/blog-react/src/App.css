@@ -49,3 +49,23 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.fade-enter {
+    opacity: 0.01;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+    /*right: 0px;
+    transition: .5s ease-in all;*/
+}
+
+.fade-leave {
+    opacity: 1;
+}
+
+.fade-leave-active {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
