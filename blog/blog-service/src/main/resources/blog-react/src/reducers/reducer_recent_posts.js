@@ -1,6 +1,7 @@
 import {
         FETCH_RECENT_POSTS
-    } from '../actions/';
+    } from '../actions/types';
+
 const INITIAL_STATE = { list: [] };
 
 export default function (state = INITIAL_STATE, action) {

@@ -1,18 +1,17 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
-export const FETCH_POSTS = 'FETCH_POSTS';
-export const FETCH_RECENT_POSTS = 'FETCH_RECENT_POSTS';
-export const FETCH_POST = 'FETCH_POST';
-export const CREATE_POST = 'CREATE_POST';
-export const UPDATE_POST = 'UPDATE_POST';
-export const DELETE_POST = 'DELETE_POST';
-export const UPLOAD_FILE = 'UPLOAD_FILE';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const LOGIN_FLAG = 'LOGIN_FLAG';
-
-export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+import {
+    FETCH_POSTS,
+    FETCH_RECENT_POSTS,
+    FETCH_POST,
+    CREATE_POST,
+    UPDATE_POST,
+    DELETE_POST,
+    UPLOAD_FILE,
+    FETCH_CATEGORIES,
+    LOGIN,
+    LOGIN_FLAG
+} from './types';
 
 const API_URL = 'http://localhost:9999/api/s';
 

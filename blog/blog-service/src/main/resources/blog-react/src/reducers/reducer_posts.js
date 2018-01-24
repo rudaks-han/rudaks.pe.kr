@@ -4,7 +4,8 @@ import {
         //UPDATE_POST,
         //DELETE_POST,
         UPLOAD_FILE
-    } from '../actions/';
+    } from '../actions/types';
+
 const INITIAL_STATE = { list: [], post: null, category: null, file: null };
 
 export default function (state = INITIAL_STATE, action) {

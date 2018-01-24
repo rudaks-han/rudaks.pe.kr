@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Post from './post';
 import Confirm from 'react-confirm-bootstrap';
 
 const PostActionButtons = ({postId, onDeleteClick, actionButtonVisibility}) => {

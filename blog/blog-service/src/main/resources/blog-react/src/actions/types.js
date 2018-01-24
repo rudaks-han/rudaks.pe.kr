@@ -1,0 +1,10 @@
+export const FETCH_POSTS = 'fetch_posts';
+export const FETCH_RECENT_POSTS = 'fetch_recent_posts';
+export const FETCH_POST = 'fetch_post';
+export const CREATE_POST = 'create_post';
+export const UPDATE_POST = 'update_post';
+export const DELETE_POST = 'delete_post';
+export const UPLOAD_FILE = 'upload_file';
+export const LOGIN = 'login';
+export const LOGIN_FLAG = 'login_flag';
+export const FETCH_CATEGORIES = 'fetch_categories';

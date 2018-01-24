@@ -134,7 +134,6 @@ class PostNew extends Component {
                             type="text"
                             label="Email"
                             component={renderField}
-                            label="Email"
                             />
 
                         <Field
@@ -142,7 +141,6 @@ class PostNew extends Component {
                             type="text"
                             label="Title"
                             component={renderField}
-                            label="Title"
                             />
 
                         <Field

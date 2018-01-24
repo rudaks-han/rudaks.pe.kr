@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import { Field, reduxForm } from 'redux-form'
 import {connect} from "react-redux";
-import { login } from "../actions";
+import { login, checkLogin } from "../actions";
 import Cookies from 'js-cookie';
 
 class Login extends Component {
@@ -16,7 +16,11 @@ class Login extends Component {
                 //console.error('res : ' + JSON.stringify(res))
                 if (res.payload.data.result === 'success')
                 {
-                    Cookies.set("uid", res.payload.data.key, { expires: 365, path: '' });
+                    if (props.rememberMe)
+                        Cookies.set("uid", res.payload.data.key, { expires: 365, path: '' });
+                    else
+                        Cookies.set("uid", res.payload.data.key, { expires: 365, path: '' });
+
                     alert('로그인 되었습니다.');
                     this.props.history.push('/');
                 }
@@ -31,13 +35,19 @@ class Login extends Component {
                      input,
                      label,
                      type,
+                     style,
                      meta: { touched, error, warning }
                  }) {
 
-        const inputType = <input {...input} className="form-control" placeholder={label}  type={type} />;
+        console.error('style : ' + JSON.stringify(style))
+        const inputType = <input {...input} className="form-control" placeholder={label}  type={type} style={style}/>;
+
+        let cssStyle = {};
+        if (type === 'checkbox')
+            cssStyle = {float: 'left'}
 
         return (
-            <div className={`form-group ${touched && error ? 'has-error' : ''}`}>
+            <div className={`form-group ${touched && error ? 'has-error' : ''}`} style={cssStyle}>
 
                 <div className="col-lg-10">
                     {inputType}
@@ -74,7 +84,7 @@ class Login extends Component {
 
                     <div>
                         <label className="checkbox" style={{display:'inline-block', 'marginLeft':'40px'}}>
-                            <input type="checkbox" value="remember-me"/> Remember me
+                            <Field name="rememberMe" id="rememberMe" component={this.renderField} type="checkbox" style={{width:'50px', float:'left'}} /> Remember me
                         </label>
                     </div>
 
@@ -100,7 +110,7 @@ function validate(values) {
     return errors;
 }
 
-Login = connect(null, { login })(Login);
+Login = connect(null, { login, checkLogin })(Login);
 
 export default reduxForm({
     form: 'LoginForm',

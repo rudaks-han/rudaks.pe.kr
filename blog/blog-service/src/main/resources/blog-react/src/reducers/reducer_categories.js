@@ -1,4 +1,5 @@
-import { FETCH_CATEGORIES } from '../actions/';
+import { FETCH_CATEGORIES } from '../actions/types';
+
 const INITIAL_STATE = { list: [] };
 
 export default function (state = INITIAL_STATE, action) {

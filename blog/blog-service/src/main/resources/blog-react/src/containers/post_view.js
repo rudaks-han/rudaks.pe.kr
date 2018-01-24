@@ -77,21 +77,15 @@ class PostView extends Component {
 
         console.error('affectedCount : ' + affectedCount)
 
-        if (affectedCount == undefined) {
+        if (affectedCount === undefined) {
             return (
                 <div>Loading...</div>
                 );
         }
 
-        if (affectedCount == 0) {
+        if (affectedCount === 0) {
             return <Warning visible={true} message="해당 포스트가 존재하지 않습니다."/>;
         }
-
-        const transitionOptions = {
-            transitionName: 'fade',
-            transitionEnterTimeout: 500,
-            transitionLeaveTimeout: 500
-        };
 
         return (
             <div key={1} className="post-wrapper">

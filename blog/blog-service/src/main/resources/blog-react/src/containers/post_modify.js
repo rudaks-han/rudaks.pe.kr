@@ -196,7 +196,6 @@ class PostModify extends Component {
                             type="text"
                             label="Email"
                             component={renderField}
-                            label="Email"
                             />
 
                         <Field
@@ -204,7 +203,6 @@ class PostModify extends Component {
                             type="text"
                             label="Title"
                             component={renderField}
-                            label="Title"
                             />
 
                         <Field
