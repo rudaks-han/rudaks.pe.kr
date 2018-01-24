@@ -1,4 +1,6 @@
 export const FETCH_POSTS = 'fetch_posts';
+export const FETCH_NEXT_PAGE_POSTS = 'fetch_next_page_posts';
+export const HAS_NEXT_PAGE = 'has_next_page';
 export const FETCH_RECENT_POSTS = 'fetch_recent_posts';
 export const FETCH_POST = 'fetch_post';
 export const CREATE_POST = 'create_post';

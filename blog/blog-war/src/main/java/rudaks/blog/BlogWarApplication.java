@@ -13,7 +13,7 @@ public class BlogWarApplication extends SpringBootServletInitializer {
 		//
 		return application
 				.properties(
-						"spring.config.location:classpath:/metro.properties,classpath:/common.properties"
+						"spring.config.location:classpath:/application.properties,classpath:/common.properties"
 				)
 				.sources(BlogWarApplication.class);
 	}

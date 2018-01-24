@@ -8,8 +8,8 @@ import rudaks.blog.domain.entity.Post;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Entity(name = "t_post")
@@ -53,8 +53,17 @@ public class PostJpo
 
     public static List<Post> toDomains(List<PostJpo> postJpos)
     {
-        return postJpos.stream()
+        /*return postJpos.stream()
                         .map(jpo -> jpo.toDomain())
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList());*/
+
+        List<Post> list = new ArrayList<Post>();
+
+        for (PostJpo postJpo: postJpos)
+        {
+            list.add(postJpo.toDomain());
+        }
+
+        return list;
     }
 }

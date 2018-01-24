@@ -117,7 +117,8 @@ public class JaxRSClient implements NaraRestClient {
         if (headers == null) return null;
         MultivaluedMap<String, Object> mvm = new MultivaluedHashMap<>();
         for (String key : headers.keySet()) {
-            mvm.put(key, new ArrayList<>(headers.get(key)));
+            //mvm.put(key, new ArrayList<>(headers.get(key)));
+            mvm.put(key, new ArrayList<Object>(headers.get(key)));
         }
         return mvm;
     }

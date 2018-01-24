@@ -11,10 +11,9 @@ import rudaks.blog.da.jpa.springdata.PostRepository;
 import rudaks.blog.domain.entity.Category;
 import rudaks.blog.domain.store.CategoryStore;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Repository
 public class CategoryJpaStore implements CategoryStore
@@ -51,8 +50,15 @@ public class CategoryJpaStore implements CategoryStore
     public List<Category> retreiveList(String includeCount)
     {
         Iterable<CategoryJpo> it = categoryRepository.findAll(new Sort(Sort.Direction.ASC, "sortOrder"));
-        List<CategoryJpo> categoryJpos =
-                StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
+        /*List<CategoryJpo> categoryJpos =
+                StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());*/
+
+        List<CategoryJpo> categoryJpos = new ArrayList<CategoryJpo>();
+
+        for (CategoryJpo categoryJpo: it)
+        {
+            categoryJpos.add(categoryJpo);
+        }
 
         if ("Y".equals(includeCount))
         {

@@ -7,8 +7,8 @@ import rudaks.blog.domain.entity.Guestbook;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Entity(name = "t_guestbook")
@@ -48,8 +48,17 @@ public class GuestbookJpo
 
     public static List<Guestbook> toDomains(List<GuestbookJpo> guestbookJpos)
     {
-        return guestbookJpos.stream()
+        /*return guestbookJpos.stream()
                         .map(jpo -> jpo.toDomain())
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList());*/
+
+        List<Guestbook> list = new ArrayList<Guestbook>();
+
+        for (GuestbookJpo guestbookJpo: guestbookJpos)
+        {
+            list.add(guestbookJpo.toDomain());
+        }
+
+        return list;
     }
 }

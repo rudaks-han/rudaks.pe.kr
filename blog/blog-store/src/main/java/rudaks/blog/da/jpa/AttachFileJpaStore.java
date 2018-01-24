@@ -1,16 +1,14 @@
 package rudaks.blog.da.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import rudaks.blog.da.jpa.jpo.AttachFileJpo;
 import rudaks.blog.da.jpa.springdata.AttachFileRepository;
 import rudaks.blog.domain.entity.AttachFile;
 import rudaks.blog.domain.store.AttachFileStore;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Repository
 public class AttachFileJpaStore implements AttachFileStore
@@ -22,8 +20,15 @@ public class AttachFileJpaStore implements AttachFileStore
     public List<AttachFile> list(String postId)
     {
         Iterable<AttachFileJpo> it = attachFileRepository.findByPostIdOrderBySeq(postId);
-        List<AttachFileJpo> attachFileJpos =
-                        StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());
+        /*List<AttachFileJpo> attachFileJpos =
+                        StreamSupport.stream(it.spliterator(), false).collect(Collectors.toList());*/
+
+        List<AttachFileJpo> attachFileJpos = new ArrayList<AttachFileJpo>();
+
+        for (AttachFileJpo attachFileJpo: it)
+        {
+            attachFileJpos.add(attachFileJpo);
+        }
         return AttachFileJpo.toDomains(attachFileJpos);
     }
 

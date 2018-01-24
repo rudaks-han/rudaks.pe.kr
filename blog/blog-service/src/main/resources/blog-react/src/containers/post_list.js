@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
+import { fetchPosts, fetchNextPagePosts } from '../actions';
 import Warning from '../components/warning/warning';
 
 import { withRouter } from 'react-router-dom';
@@ -27,12 +27,14 @@ class PostList extends Component {
     }
 
     componentWillMount() {
+        console.error('____ componentWillMount');
+
         const query = queryString.parse(this.props.location.search);
         const offset = query.offset ? query.offset : 0;
         this.setState({
             offset: offset
         });
-        this.props.fetchPosts(this.props.match.params.category, offset);
+        this.goPage(this.props.match.params.category, offset);
 
         console.error('componentWillMount')
     }
@@ -51,18 +53,39 @@ class PostList extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.match.url !== this.props.match.url)
         {
+            console.error('____ componentDidUpdate');
+
             const query = queryString.parse(this.props.location.search);
             const offset = query.offset ? query.offset : 0;
             this.setState({
                 offset: offset,
                 category: this.props.match.params.category
             });
-            this.props.fetchPosts(this.props.match.params.category, offset);
-            console.error('componentDidUpdate')
+            this.goPage(this.props.match.params.category, offset);
         }
     }
 
     componentWillReceiveProps(nextProps) {
+    }
+
+    goPage(category, offset) {
+        this.props.fetchPosts(category, offset);
+        this.props.fetchNextPagePosts(category, offset);
+
+        let hasNextPost = false;
+        if (this.props.nextPosts && this.props.nextPosts.length > 0) {
+            hasNextPost = true;
+        }
+
+        /*if (this.props.nextPagePost && this.props.nextPagePost.length > 0) {
+            this.setState({
+                prevDisabled: false
+            });
+        } else {
+            this.setState({
+                prevDisabled: true
+            });
+        }*/
     }
 
     previousPage() {
@@ -72,9 +95,7 @@ class PostList extends Component {
             offset: nextOffset
         });
 
-        console.error('this.state.category : ' + this.state.category)
-        console.error('nextOffset : ' + nextOffset)
-        this.props.fetchPosts(this.state.category, nextOffset);
+        this.goPage(this.state.category, nextOffset);
         this.props.history.push('?offset=' + nextOffset)
     }
 
@@ -106,19 +127,38 @@ class PostList extends Component {
         this.setState({
             offset: prevOffset
         });
-        this.props.fetchPosts(this.state.category, prevOffset);
+        //this.props.fetchPosts(this.state.category, prevOffset);
+        this.goPage(this.state.category, prevOffset);
         this.props.history.push('?offset=' + prevOffset)
     }
 
     renderPager() {
+        let disablePrev = false;
+        let disableNext = false;
+        if (this.props.nextPagePosts && this.props.nextPagePosts.length > 0) {
+            disablePrev = false;
+        } else {
+            disablePrev = true;
+        }
+
+        const offset = this.state.offset ? this.state.offset : 0;
+
+        if (offset >= 5) {
+            disableNext = false;
+        } else {
+            disableNext = true;
+        }
+
         return (
             <Pager>
                 <Pager.Item previous
+                            disabled={disablePrev}
                     onClick={this.previousPage.bind(this)}
                             href="#">
                     &larr; Previous Page
                 </Pager.Item>
                 <Pager.Item next
+                            disabled={disableNext}
                      onClick={this.nextPage.bind(this)}
                             href="#">
                     Next Page &rarr;
@@ -128,14 +168,17 @@ class PostList extends Component {
     }
 
     renderList() {
+        const { posts } = this.props;
 
-        if (!this.props.posts) {
+        if (!posts) {
             return (
                 <div>No Data</div>
             );
         }
 
-        return this.props.posts.map((post, index) => {
+
+
+        return posts.map((post, index) => {
             return (
                 <div key={post.id} className="post-wrapper">
                     <Post
@@ -178,8 +221,11 @@ class PostList extends Component {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts.list
+        posts: state.posts.list,
+        nextPagePosts: state.posts.nextPagePosts
     };
 }
 
-export default withRouter(connect(mapStateToProps, { fetchPosts }, null, { pure: false })(PostList));
+
+
+export default withRouter(connect(mapStateToProps, { fetchPosts, fetchNextPagePosts }, null, { pure: false })(PostList));

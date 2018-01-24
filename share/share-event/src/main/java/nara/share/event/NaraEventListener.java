@@ -28,13 +28,13 @@ public abstract class NaraEventListener<T> {
         //
         logger.debug("Event received..." + t.getClass().getName());
         try {
-            getHandlers().forEach(handler -> {
+            /*getHandlers().forEach(handler -> {
                 executors.execute(() -> {
                     logger.debug(String.format("Nara event handler[%s] start...", handler.getClass().toString()));
                     handler.handle(t);
                     logger.debug(String.format("Nara event handler[%s] finish...", handler.getClass().toString()));
                 });
-            });
+            });*/
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

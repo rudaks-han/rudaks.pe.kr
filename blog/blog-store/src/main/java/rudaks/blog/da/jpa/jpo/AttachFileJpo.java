@@ -7,8 +7,8 @@ import rudaks.blog.domain.entity.AttachFile;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @IdClass(AttachFileId.class)
@@ -44,8 +44,16 @@ public class AttachFileJpo
 
     public static List<AttachFile> toDomains(List<AttachFileJpo> attachFileJpos)
     {
-        return attachFileJpos.stream()
+        /*return attachFileJpos.stream()
                         .map(jpo -> jpo.toDomain())
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList());*/
+        List<AttachFile> list = new ArrayList<AttachFile>();
+
+        for (AttachFileJpo attachFileJpo: attachFileJpos)
+        {
+            list.add(attachFileJpo.toDomain());
+        }
+
+        return list;
     }
 }

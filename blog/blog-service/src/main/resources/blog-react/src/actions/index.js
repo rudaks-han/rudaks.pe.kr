@@ -1,7 +1,10 @@
+
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {
     FETCH_POSTS,
+    FETCH_NEXT_PAGE_POSTS,
+    HAS_NEXT_PAGE,
     FETCH_RECENT_POSTS,
     FETCH_POST,
     CREATE_POST,
@@ -12,6 +15,7 @@ import {
     LOGIN,
     LOGIN_FLAG
 } from './types';
+
 
 const API_URL = 'http://localhost:9999/api/s';
 
@@ -24,8 +28,25 @@ export function fetchPosts(category, offset) {
     if (!offset) offset = 0;
     const request = axios.get(`${API_URL}/posts?offset=${offset}&limit=5${categoryParam}`, axiosConfig);
 
+
+    axios.get(`${API_URL}/posts?offset=${offset+5}&limit=1${categoryParam}`, axiosConfig);
+
     return {
         type: FETCH_POSTS,
+        payload: request
+    };
+}
+
+export function fetchNextPagePosts(category, offset) {
+
+    const categoryParam = category ? '&category=' + category : '';
+    if (!offset) offset = 0;
+    offset += 5;
+
+    const request = axios.get(`${API_URL}/posts?offset=${offset}&limit=1${categoryParam}`, axiosConfig);
+
+    return {
+        type: FETCH_NEXT_PAGE_POSTS,
         payload: request
     };
 }
@@ -113,8 +134,9 @@ export function uploadFile(formData) {
     };
 }
 
-export function fetchCategories() {
-    const request = axios.get(`${API_URL}/categories`, axiosConfig);
+export function fetchCategories(includeCount) {
+    const paramIncludeCount = includeCount ? includeCount : '';
+    const request = axios.get(`${API_URL}/categories?includeCount=${paramIncludeCount}`, axiosConfig);
 
     return {
         type: FETCH_CATEGORIES,

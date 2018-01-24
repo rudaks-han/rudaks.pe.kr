@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 class NavigatorMenu extends Component {
 
     componentWillMount() {
-        this.props.fetchCategories();
+        this.props.fetchCategories('Y');
         this.props.fetchRecentPosts();
     }
 
@@ -17,7 +17,7 @@ class NavigatorMenu extends Component {
                 <Link
                     key={category.id}
                     to={`/posts/${category.category}`}
-                    className="list-group-item">{category.name}
+                    className="list-group-item">{category.name} ({category.postCount})
                 </Link>
             );
         });

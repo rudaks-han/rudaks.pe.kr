@@ -35,8 +35,8 @@ public class InMemoryEventQueueListener extends NaraEventListener<NaraEvent> imp
 
         for(NaraEventHandler handler : getHandlers()) {
 
-            if (executorService != null) executorService.execute(() -> executeHandler(handler, event));
-            else executeHandler(handler, event);
+            /*if (executorService != null) executorService.execute(() -> executeHandler(handler, event));
+            else executeHandler(handler, event);*/
         }
     }
 

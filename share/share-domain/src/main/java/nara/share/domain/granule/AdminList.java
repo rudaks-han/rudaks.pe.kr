@@ -63,7 +63,8 @@ public class AdminList {
 
     public Admin find(String id) {
         //
-        return this.admins.stream().filter(admin -> id.equals(admin.getId())).findFirst().orElse(null);
+        //return this.admins.stream().filter(admin -> id.equals(admin.getId())).findFirst().orElse(null);
+        return null;
     }
 
     public void remove(String id) {

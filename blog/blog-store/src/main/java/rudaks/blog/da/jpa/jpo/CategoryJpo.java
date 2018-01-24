@@ -7,8 +7,8 @@ import rudaks.blog.domain.entity.Category;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Entity(name = "t_category")
@@ -50,8 +50,17 @@ public class CategoryJpo
 
     public static List<Category> toDomains(List<CategoryJpo> categoryJpos)
     {
-        return categoryJpos.stream()
+        /*return categoryJpos.stream()
                         .map(jpo -> jpo.toDomain())
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toList());*/
+
+        List<Category> list = new ArrayList<Category>();
+
+        for (CategoryJpo categoryJpo: categoryJpos)
+        {
+            list.add(categoryJpo.toDomain());
+        }
+
+        return list;
     }
 }

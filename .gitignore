@@ -3,7 +3,6 @@
 node_modules/
 target/
 package-lock.json
-src/components/CommentList/CommentList.css
 tmp/.gitignore
 tmp/package-lock.json
 tmp/package.json

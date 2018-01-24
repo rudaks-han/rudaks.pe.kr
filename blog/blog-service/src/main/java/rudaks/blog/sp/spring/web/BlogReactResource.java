@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BlogReactResource
 {
     //
-    @RequestMapping(value = { "/*", "/*/*" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/*", "/post/*", "/posts/*", "/guestbook/*" }, method = RequestMethod.GET)
     public String index(Model model)
     {
         //
