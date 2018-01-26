@@ -1,7 +1,6 @@
 package rudaks.blog.sp.spring.web;
 
 import nara.share.crypt.CryptoUtil;
-import nara.share.util.CookieUtil;
 import org.apache.catalina.util.ParameterMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +40,7 @@ public class UserServiceResource
                 hmResult.put("result", "success");
                 hmResult.put("key", key);
 
-                CookieUtil.setCookie(response, "uid", key, 60*60*24*365);
+                //CookieUtil.setCookie(response, "uid", key, 60*60*24*365);
             }
             catch (Exception e)
             {
