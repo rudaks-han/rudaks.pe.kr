@@ -1,7 +1,6 @@
 package rudaks.blog.cp.spring.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import rudaks.blog.domain.entity.Category;
 import rudaks.blog.domain.logic.CategoryLogic;
@@ -21,7 +20,6 @@ public class CategorySpringLogic extends CategoryLogic
     }
 
     @Override
-    @Cacheable(key = "#includeCount", value="category")
     public List<Category> listCategory(String includeCount)
     {
         return super.listCategory(includeCount);
