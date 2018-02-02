@@ -50,6 +50,8 @@ public class PostJpaStore implements PostStore
             predicates.add(exp.in(category));
         }
 
+        predicates.add(builder.equal(root.get("deleteFlag"), "N"));
+
         query.where(predicates.toArray(new Predicate[]{}));
         query.orderBy(builder.desc(root.get("createdDate")));
         query.select(root);
