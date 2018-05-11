@@ -247,25 +247,6 @@ function mapStateToProps(state) {
         categories: state.categories.list
     };
 }
-/*
-
-PostNew = connect(
-    state => ({
-        initialValues: state.posts.post,
-        post: state.posts.post
-    })
-)(PostNew)
-
-PostNew = connect(mapStateToProps, { fetchCategories, createPost, uploadFile })(PostNew);
-
-export default reduxForm({
-    form: 'PostNewForm',
-    validate
-}, null, { createPost })(PostNew);
-*/
-
-
-
 
 PostNew = reduxForm({
     form: 'PostNewForm',
