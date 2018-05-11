@@ -1,0 +1,13 @@
+export const FETCH_POSTS = 'fetch_posts';
+export const FETCH_NEXT_PAGE_POSTS = 'fetch_next_page_posts';
+export const HAS_NEXT_PAGE = 'has_next_page';
+export const FETCH_RECENT_POSTS = 'fetch_recent_posts';
+export const FETCH_POST = 'fetch_post';
+export const CREATE_POST = 'create_post';
+export const UPDATE_POST = 'update_post';
+export const DELETE_POST = 'delete_post';
+export const UPLOAD_FILE = 'upload_file';
+export const LOGIN = 'login';
+export const LOGOUT = 'logout';
+export const LOGIN_FLAG = 'login_flag';
+export const FETCH_CATEGORIES = 'fetch_categories';
